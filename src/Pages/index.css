@@ -1,0 +1,99 @@
+/* section search */
+.search {
+  width: 92vw;
+  padding: 0 4vw;
+  display: flex;
+}
+
+.search h1 {
+  font-family: "Farry", sans-serif;
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 72px;
+  letter-spacing: 0.01em;
+  position: relative;
+  /* width: 51.5vw; */
+  width: 60vw;
+}
+
+.search p {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  margin-top: 2.5vw;
+}
+
+.search-btn {
+  width: 335px;
+  height: 59px;
+  background-color: #5970ff;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 5px;
+  margin-top: 5vw;
+}
+
+.search-btn:hover {
+  cursor: pointer;
+  background-color: rgb(30, 165, 130);
+}
+
+.search-info {
+  width: 48vw;
+}
+
+.search-picture {
+  width: 43.5vw;
+}
+/* section search */
+
+/* section why */
+.why {
+  width: 92vw;
+  padding: 0 4vw;
+  display: flex;
+}
+
+.why h1 {
+  font-family: "Farry", sans-serif;
+  font-size: 45px;
+  font-weight: 900;
+  line-height: 54px;
+  letter-spacing: 0.01em;
+}
+/* section why */
+
+/* медиа запросы */
+@media screen and (max-width: 1250px) {
+  .search h1 {
+    font-size: 50px;
+    line-height: 60px;
+  }
+
+  .search p {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .search h1 {
+    font-size: 45px;
+    line-height: 55px;
+  }
+
+  .search p {
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 2vw;
+  }
+
+  .search-btn {
+    margin-top: 4vw;
+  }
+}
+/* медиа запросы */
