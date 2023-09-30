@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../img/logo.svg";
 import { NavLink } from "react-router-dom";
 import Button from "../Button";
+import "./index.css";
 
 function Header(auth) {
   return (

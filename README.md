@@ -8,7 +8,6 @@
 - CSS
 - JavaScript
 - React
-- WebPack
 
 ## Как открыть/запустить
 

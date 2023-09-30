@@ -20,7 +20,8 @@
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  margin-top: 2.5vw;
+  /* margin-top: 2.5vw; */
+  margin-top: 3.5vw;
 }
 
 .search-btn {
@@ -34,7 +35,8 @@
   letter-spacing: 0.01em;
   border: none;
   border-radius: 5px;
-  margin-top: 5vw;
+  /* margin-top: 5vw; */
+  margin-top: 5.5vw;
 }
 
 .search-btn:hover {
@@ -55,7 +57,7 @@
 .why {
   width: 92vw;
   padding: 0 4vw;
-  display: flex;
+  margin-top: 5vw;
 }
 
 .why h1 {
@@ -65,6 +67,58 @@
   line-height: 54px;
   letter-spacing: 0.01em;
 }
+
+.why-slider-container {
+  width: 90vw;
+  margin-top: 4vw;
+}
+
+.why-slider {
+  width: 86vw;
+  margin: 0 auto;
+}
+
+.why-slider__item {
+  width: 27vw;
+  height: 16vw;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px #00000034;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 15px 15px;
+}
+
+.why-slider__item img {
+  width: 4.5vw;
+  margin: 1.5vw 1.5vw;
+}
+
+.why-slider__item p {
+  margin: 0 1.5vw;
+}
+
+.arrow-back,
+.arrow-next {
+  background: none;
+  border: none;
+}
+
+.arrow-back {
+  position: relative;
+  top: -11vw;
+}
+
+.arrow-next {
+  position: relative;
+  top: -11vw;
+  left: 85vw;
+}
+
+.why-picture {
+  width: 90vw;
+  margin: 0 auto;
+}
+
 /* section why */
 
 /* медиа запросы */
