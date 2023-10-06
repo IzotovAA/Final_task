@@ -1,7 +1,8 @@
 /* section search */
 .search {
   width: 92vw;
-  padding: 0 4vw;
+  /* padding: 0 4vw; */
+  margin: 0 auto;
   display: flex;
 }
 
@@ -56,8 +57,9 @@
 /* section why */
 .why {
   width: 92vw;
-  padding: 0 4vw;
-  margin-top: 5vw;
+  /* padding: 0 4vw; */
+  /* margin-top: 5vw; */
+  margin: 5vw auto;
 }
 
 .why h1 {
@@ -120,6 +122,30 @@
 }
 
 /* section why */
+
+/* section rates */
+.rates {
+  width: 92vw;
+  /* padding: 0 4vw; */
+  margin: 0 auto;
+}
+
+.rates h1 {
+  font-family: "Farry", sans-serif;
+  font-size: 45px;
+  font-weight: 900;
+  line-height: 54px;
+  letter-spacing: 0.01em;
+}
+
+.rates-cards-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 40px auto 90px auto;
+}
+
+/* section rates */
 
 /* медиа запросы */
 @media screen and (max-width: 1250px) {

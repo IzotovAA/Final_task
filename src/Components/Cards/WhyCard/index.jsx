@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Card({ image, text, className }) {
+function WhyCard({ image, text, className }) {
   return (
     <div className={className}>
       <img src={image} alt="card-pic" />
@@ -10,4 +10,4 @@ function Card({ image, text, className }) {
   );
 }
 
-export default Card;
+export default WhyCard;

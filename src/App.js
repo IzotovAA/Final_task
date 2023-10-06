@@ -8,7 +8,6 @@ function App() {
   return (
     <>
       <Header auth={false} />
-      <div className="margin">для теста отступов</div>
       <MainPage auth={false} onClick={() => {}} />
       <Footer />
     </>

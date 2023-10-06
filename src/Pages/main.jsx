@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import Button from "../Components/Button";
 import searchPic from "../img/search.svg";
-import Card from "../Components/Card";
+import WhyCard from "../Components/Cards/WhyCard";
 import {
   CarouselProvider,
   Slider,
@@ -17,6 +17,10 @@ import card3 from "../img/card-img-3.svg";
 import whyPic from "../img/why.svg";
 import arrowLeft from "../img/arrow-left.svg";
 import arrowRight from "../img/arrow-right.svg";
+import RatesCard from "../Components/Cards/RatesCard";
+import beginner from "../img/beginner.svg";
+import pro from "../img/pro.svg";
+import buisness from "../img/business.svg";
 
 function MainPage({ auth, onClick }) {
   return (
@@ -55,42 +59,42 @@ function MainPage({ auth, onClick }) {
           >
             <Slider className="why-slider">
               <Slide index={0}>
-                <Card
+                <WhyCard
                   image={card1}
                   text="Высокая и оперативная скорость обработки заявки"
                   className="why-slider__item"
                 />
               </Slide>
               <Slide index={1}>
-                <Card
+                <WhyCard
                   image={card2}
                   text="Огромная комплексная база данных, обеспечивающая объективный ответ на запрос"
                   className="why-slider__item"
                 />
               </Slide>
               <Slide index={2}>
-                <Card
+                <WhyCard
                   image={card3}
                   text="Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству"
                   className="why-slider__item"
                 />
               </Slide>
               <Slide index={3}>
-                <Card
+                <WhyCard
                   image={card1}
                   text="Высокая и оперативная скорость обработки заявки. Копия для примера работы слайдера"
                   className="why-slider__item"
                 />
               </Slide>
               <Slide index={4}>
-                <Card
+                <WhyCard
                   image={card2}
                   text="Огромная комплексная база данных, обеспечивающая объективный ответ на запрос. Копия для примера работы слайдера"
                   className="why-slider__item"
                 />
               </Slide>
               <Slide index={5}>
-                <Card
+                <WhyCard
                   image={card3}
                   text="Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству. Копия для примера работы слайдера"
                   className="why-slider__item"
@@ -107,6 +111,72 @@ function MainPage({ auth, onClick }) {
         </div>
 
         <img src={whyPic} alt="why-pic" className="why-picture" />
+      </section>
+
+      <section className="rates">
+        <h1>наши тарифы</h1>
+        <div className="rates-cards-container">
+          <RatesCard
+            image={beginner}
+            className="rates-card"
+            cardName="Beginner"
+            cardNameText="Для небольшого исследования"
+            currentPrize="799 ₽"
+            lastPrize="1200 ₽"
+            prizeText="или 150 ₽/мес. при рассрочке на 24 мес."
+            ratesItems={[
+              "Безлимитная история запросов",
+              "Безопасная сделка",
+              "Поддержка 24/7",
+            ]}
+            buttonsParams={{
+              name: "Подробнее",
+              onClick: () => {},
+              className: "rates-card-btn",
+            }}
+            active={true}
+          />
+          <RatesCard
+            image={pro}
+            className="rates-card"
+            cardName="Pro"
+            cardNameText="Для HR и фрилансеров"
+            currentPrize="1299 ₽"
+            lastPrize="2600 ₽"
+            prizeText="или 279 ₽/мес. при рассрочке на 24 мес."
+            ratesItems={[
+              "Все пункты тарифа Beginner",
+              "Экспорт истории",
+              "Рекомендации по приоритетам",
+            ]}
+            buttonsParams={{
+              name: "Подробнее",
+              onClick: () => {},
+              className: "rates-card-btn",
+            }}
+            active={false}
+          />
+          <RatesCard
+            image={buisness}
+            className="rates-card"
+            cardName="Business"
+            cardNameText="Для корпоративных клиентов"
+            currentPrize="2379 ₽"
+            lastPrize="3700 ₽"
+            prizeText=""
+            ratesItems={[
+              "Все пункты тарифа Pro",
+              "Безлимитное количество запросов",
+              "Приоритетная поддержка",
+            ]}
+            buttonsParams={{
+              name: "Подробнее",
+              onClick: () => {},
+              className: "rates-card-btn",
+            }}
+            active={false}
+          />
+        </div>
       </section>
     </>
   );

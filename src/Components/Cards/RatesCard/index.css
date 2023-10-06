@@ -1,0 +1,153 @@
+.rates-card {
+  min-width: 415px;
+  border-radius: 10px;
+  border: 3px solid burlywood;
+  margin: 30px 5px;
+}
+
+.card-header {
+  height: 132px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-header img {
+  margin: 10px 15px 0 0;
+  width: 92px;
+  height: 93px;
+}
+
+.beginner {
+  background-color: #ffb64f;
+}
+
+.pro {
+  background-color: #7ce3e1;
+}
+
+.business {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.card-header-info {
+  margin: 25px 0 0 20px;
+}
+
+.card-header-info h2 {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+.card-header-info p {
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 10px;
+}
+
+.active-rate,
+.notactive-rate {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 10px 0 0;
+}
+
+.active-rate p {
+  background-color: #3ba5e0;
+  color: #ffffff;
+  width: fit-content;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+
+.notactive-rate p {
+  background-color: #ffffff;
+  color: #ffffff;
+  width: fit-content;
+  padding: 5px 15px;
+}
+
+.card-body {
+  height: 408px;
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body-prize-container p {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.card-body-prize {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.prize-current {
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+.prize-last {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 30px;
+  color: #0000007e;
+  margin-left: 20px;
+}
+
+.rates-details p {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+
+.rates-details-list__item {
+  font-size: 18px;
+  line-height: 22px;
+  margin-bottom: 2px;
+}
+
+.rates-details-list__item img {
+  margin-right: 10px;
+}
+
+.rates-card-btn {
+  width: 355px;
+  height: 59px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5970ff;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.rates-card-btn:hover {
+  cursor: pointer;
+  background-color: rgb(30, 165, 130);
+}
+
+.rates-card-btn--active {
+  width: 355px;
+  height: 59px;
+  border: none;
+  border-radius: 5px;
+  background-color: #d2d2d2;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+.rates-card-btn--active:hover {
+  cursor: pointer;
+  background-color: rgb(30, 165, 130);
+  color: #ffffff;
+}
