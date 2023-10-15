@@ -3,7 +3,7 @@ import "./index.css";
 import Button from "../../Button";
 import checkMark from "../../../img/check-mark.svg";
 
-function RatesCard({
+export default function RatesCard({
   image,
   className,
   cardName,
@@ -20,9 +20,11 @@ function RatesCard({
       <p>Текущий тариф</p>
     </div>
   );
+  let cardClass = className;
   let headerClass = `card-header ${cardName.toLowerCase()}`;
   let buttonName = buttonsParams.name;
   let buttonClass = buttonsParams.className;
+  let i = 0;
 
   if (active) {
     currentRate = (
@@ -30,12 +32,13 @@ function RatesCard({
         <p>Текущий тариф</p>
       </div>
     );
+    cardClass = `${cardClass} ${cardClass}--${cardName.toLowerCase()}`;
     buttonName = "Перейти в личный кабинет";
     buttonClass = buttonsParams.className + "--active";
   }
 
   return (
-    <div className={className}>
+    <div className={cardClass}>
       <div className={headerClass}>
         <div className="card-header-info">
           <h2>{cardName}</h2>
@@ -59,8 +62,9 @@ function RatesCard({
 
           <ul className="rates-details-list">
             {ratesItems.map((item) => {
+              i++;
               return (
-                <li className="rates-details-list__item">
+                <li key={i} className="rates-details-list__item">
                   <img src={checkMark} alt="checkMark" />
                   {item}
                 </li>
@@ -77,5 +81,3 @@ function RatesCard({
     </div>
   );
 }
-
-export default RatesCard;

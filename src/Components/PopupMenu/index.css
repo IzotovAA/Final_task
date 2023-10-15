@@ -1,0 +1,122 @@
+.popup-bg {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  background-color: #a0b8e1;
+  opacity: 0.1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.popup-bg--hidden {
+  display: none !important;
+}
+
+.popup--close {
+  opacity: 0;
+  z-index: -10;
+  animation-name: shiftback;
+  animation-duration: 1.5s;
+}
+
+.popup--open {
+  opacity: 1;
+  z-index: 10;
+  animation-name: shift;
+  animation-duration: 1.5s;
+}
+
+.popup-container {
+  /* display: block; */
+  width: 375px;
+  height: 491px;
+  background-color: #029491;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px 0 10px;
+}
+
+.popup-body {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.popup-body-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-body-menu__item {
+  margin-bottom: 20px;
+}
+
+.popup-body-menu__item a {
+  color: #ffffff;
+}
+
+.popup-body-menu__item > .active {
+  color: rgb(85 250 120);
+}
+
+.popup-body-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-registrate-btn {
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.popup-enter-btn {
+  width: 295px;
+  height: 52px;
+  margin-bottom: 20px;
+}
+
+.popup-registrate-btn:hover {
+  background-color: #06615f;
+}
+
+@keyframes shift {
+  from {
+    width: 0px;
+    opacity: 0.1;
+  }
+  to {
+    width: 375px;
+    opacity: 1;
+  }
+}
+
+@keyframes shiftback {
+  0% {
+    width: 375px;
+    z-index: 10;
+    opacity: 1;
+  }
+  95% {
+    width: 5px;
+    z-index: 10;
+    opacity: 0.1;
+  }
+  100% {
+    width: 0px;
+    z-index: -10;
+    opacity: 0;
+  }
+}

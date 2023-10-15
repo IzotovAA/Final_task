@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./index.css";
-import Button from "../Components/Button";
-import searchPic from "../img/search.svg";
-import WhyCard from "../Components/Cards/WhyCard";
+import Button from "../../Components/Button";
+import searchPic from "../../img/search.svg";
+import WhyCard from "../../Components/Cards/WhyCard";
 import {
   CarouselProvider,
   Slider,
@@ -11,20 +11,38 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import card1 from "../img/card-img-1.svg";
-import card2 from "../img/card-img-2.svg";
-import card3 from "../img/card-img-3.svg";
-import whyPic from "../img/why.svg";
-import arrowLeft from "../img/arrow-left.svg";
-import arrowRight from "../img/arrow-right.svg";
-import RatesCard from "../Components/Cards/RatesCard";
-import beginner from "../img/beginner.svg";
-import pro from "../img/pro.svg";
-import buisness from "../img/business.svg";
+import card1 from "../../img/card-img-1.svg";
+import card2 from "../../img/card-img-2.svg";
+import card3 from "../../img/card-img-3.svg";
+import whyPic from "../../img/why.svg";
+import arrowLeft from "../../img/arrow-left.svg";
+import arrowRight from "../../img/arrow-right.svg";
+import RatesCard from "../../Components/Cards/RatesCard";
+import beginner from "../../img/beginner.svg";
+import pro from "../../img/pro.svg";
+import buisness from "../../img/business.svg";
+import calcSlidesQty from "../../services/calcSlidesQty";
+import { AppContext } from "../../App";
+import PopupMenu from "../../Components/PopupMenu";
+import onClickBurger from "../../services/onClickBurger";
 
-function MainPage({ auth, onClick }) {
+let popupClass = "preload popup-container popup--close";
+
+export default function MainPage({ auth, onClick }) {
+  const { screenWidth } = useContext(AppContext);
+  const [slidesQty, setSlidesQty] = useState(calcSlidesQty(screenWidth));
+
+  useEffect(() => {
+    setSlidesQty(calcSlidesQty(screenWidth));
+  }, [screenWidth]);
+
   return (
     <>
+      <PopupMenu
+        className={popupClass}
+        onClickBg={onClickBurger}
+        onClick={onClick}
+      />
       <section className="search">
         <div className="search-info">
           <h1>
@@ -51,10 +69,10 @@ function MainPage({ auth, onClick }) {
 
         <div className="why-slider-container">
           <CarouselProvider
-            naturalSlideWidth={200}
-            naturalSlideHeight={130}
+            naturalSlideWidth={400}
+            naturalSlideHeight={225}
             totalSlides={6}
-            visibleSlides={3}
+            visibleSlides={slidesQty}
             infinite={true}
           >
             <Slider className="why-slider">
@@ -131,7 +149,7 @@ function MainPage({ auth, onClick }) {
             ]}
             buttonsParams={{
               name: "Подробнее",
-              onClick: () => {},
+              onClick: onClick,
               className: "rates-card-btn",
             }}
             active={true}
@@ -151,7 +169,7 @@ function MainPage({ auth, onClick }) {
             ]}
             buttonsParams={{
               name: "Подробнее",
-              onClick: () => {},
+              onClick: onClick,
               className: "rates-card-btn",
             }}
             active={false}
@@ -171,7 +189,7 @@ function MainPage({ auth, onClick }) {
             ]}
             buttonsParams={{
               name: "Подробнее",
-              onClick: () => {},
+              onClick: onClick,
               className: "rates-card-btn",
             }}
             active={false}
@@ -181,5 +199,3 @@ function MainPage({ auth, onClick }) {
     </>
   );
 }
-
-export default MainPage;

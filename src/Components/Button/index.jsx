@@ -1,11 +1,14 @@
 import React from "react";
 
-function Button({ name, onClick, className }) {
+export default function Button({
+  name,
+  onClick,
+  className,
+  btnType = "button",
+}) {
   return (
-    <button className={className} onClick={onClick}>
+    <button className={className} onClick={onClick} type={btnType}>
       {name}
     </button>
   );
 }
-
-export default Button;

@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../img/logo-footer.svg";
 import "./index.css";
 
-function Footer() {
+export default function Footer() {
   return (
     <footer className="footer">
       <img src={logo} alt="logo" />
@@ -16,5 +16,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

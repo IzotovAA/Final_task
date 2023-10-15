@@ -1,0 +1,39 @@
+.auth {
+  width: 94vw;
+  height: calc(100vh - 253px);
+  margin: 10px auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.auth-info {
+  width: 55vw;
+  margin-top: 50px;
+}
+
+.auth-info h1 {
+  font-family: "Farry", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 48px;
+  letter-spacing: 0.02em;
+}
+
+.auth-info img {
+  padding-left: 8vw;
+  margin-top: 20px;
+}
+
+.auth-lock {
+  z-index: 2;
+}
+
+.auth-form {
+  width: 30vw;
+  min-width: 355px;
+  height: 523px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 3px #00000026;
+  margin-top: 50px;
+  margin-left: -25px;
+}

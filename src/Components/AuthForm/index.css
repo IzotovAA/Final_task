@@ -1,0 +1,132 @@
+.authform-btns-container {
+  width: 88%;
+  margin: 25px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.authform-btn-enter,
+.authform-btn-reg {
+  height: 29px;
+  border: none;
+  background: none;
+  border-bottom: 2px solid #c7c7c7;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.02em;
+  color: #c7c7c7;
+  cursor: pointer;
+}
+
+.authform-btn-enter {
+  width: 40%;
+}
+
+.authform-btn-reg {
+  width: 56%;
+}
+
+.authform-btn-enter:hover,
+.authform-btn-reg:hover {
+  border-bottom: 2px solid #65c5c3;
+  color: #65c5c3;
+}
+
+.authform-btn--active {
+  border-bottom: 2px solid #029491;
+  color: #029491;
+}
+
+.authform-login-container,
+.authform-pass-container {
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.authform-login-label,
+.authform-pass-label {
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.02em;
+  color: #949494;
+  margin-top: 15px;
+}
+
+.authform-login-input,
+.authform-pass-input {
+  height: 41px;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 2px #0000000d;
+  margin-top: 15px;
+}
+
+.authform-enter-btn-container {
+  width: 88%;
+  margin: 30px auto 20px auto;
+}
+
+.authform-enter-btn {
+  width: 100%;
+  height: 59px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5970ff;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.authform-enter-btn:hover {
+  opacity: 1;
+}
+
+.authform-passrecover-container {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.authform-passrecover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.02em;
+  color: #5970ff;
+}
+
+.authform-alternative-enter-container {
+  width: 88%;
+  margin: 25px auto 0px auto;
+}
+
+.authform-alternative-enter-container p {
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.02em;
+  color: #949494;
+}
+
+.authform-alternative-enter-btn-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.authform-alternative-enter-btn {
+  width: 96px;
+  height: 31px;
+  background: none;
+  border: 1px solid #5970ff82;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}

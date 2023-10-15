@@ -1,0 +1,13 @@
+.reg {
+  width: 94vw;
+  height: calc(100vh - 268px);
+  margin: 10px auto;
+}
+
+.reg .auth-form {
+  margin: 0 auto;
+}
+
+.reg .authform-btns-container {
+  padding-top: 30px;
+}

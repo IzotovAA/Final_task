@@ -5,3 +5,25 @@
   line-height: inherit;
   letter-spacing: inherit;
 }
+
+.why-slider__item {
+  width: 400px;
+  height: 225px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 5px #00000033;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 10px auto;
+}
+
+.why-slider__item img {
+  /* width: 4.5vw; */
+  width: 64px;
+  /* margin: 1.5vw 1.5vw; */
+  margin: 20px 20px;
+}
+
+.why-slider__item p {
+  /* margin: 0 1.5vw; */
+  margin: 0 20px;
+}

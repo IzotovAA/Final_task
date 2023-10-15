@@ -1,14 +1,31 @@
 .rates-card {
   min-width: 415px;
+  box-shadow: 0 0 5px 5px #00000033;
   border-radius: 10px;
-  border: 3px solid burlywood;
   margin: 30px 5px;
+}
+
+.rates-card--beginner {
+  border: 2px solid #ffb64f;
+  box-shadow: none;
+}
+
+.rates-card--pro {
+  border: 2px solid #7ce3e1;
+  box-shadow: none;
+}
+
+.rates-card--business {
+  border: 2px solid #000000;
+  box-shadow: none;
 }
 
 .card-header {
   height: 132px;
   display: flex;
   justify-content: space-between;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 .card-header img {
