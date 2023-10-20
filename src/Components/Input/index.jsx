@@ -1,4 +1,3 @@
-import "./index.css";
 import React from "react";
 
 export default function Input({
@@ -9,6 +8,7 @@ export default function Input({
   containerClass,
   labelClass,
   inputClass,
+  onChange,
 }) {
   return (
     <>
@@ -22,6 +22,7 @@ export default function Input({
           id={id}
           placeholder={placeholder}
           className={inputClass}
+          onChange={onChange}
         />
       </div>
     </>

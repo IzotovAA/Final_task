@@ -23,10 +23,6 @@ import pro from "../../img/pro.svg";
 import buisness from "../../img/business.svg";
 import calcSlidesQty from "../../services/calcSlidesQty";
 import { AppContext } from "../../App";
-import PopupMenu from "../../Components/PopupMenu";
-import onClickBurger from "../../services/onClickBurger";
-
-let popupClass = "preload popup-container popup--close";
 
 export default function MainPage({ auth, onClick }) {
   const { screenWidth } = useContext(AppContext);
@@ -38,11 +34,6 @@ export default function MainPage({ auth, onClick }) {
 
   return (
     <>
-      <PopupMenu
-        className={popupClass}
-        onClickBg={onClickBurger}
-        onClick={onClick}
-      />
       <section className="search">
         <div className="search-info">
           <h1>
@@ -55,11 +46,13 @@ export default function MainPage({ auth, onClick }) {
             Комплексный анализ публикаций, получение данных <br />в формате PDF
             на электронную почту.
           </p>
-          <Button
-            name="Запросить данные"
-            onClick={onClick}
-            className="search-btn"
-          />
+          {auth ? (
+            <Button
+              name="Запросить данные"
+              onClick={onClick}
+              className="search-btn"
+            />
+          ) : null}
         </div>
         <img src={searchPic} alt="search-pic" className="search-picture" />
       </section>
@@ -152,7 +145,7 @@ export default function MainPage({ auth, onClick }) {
               onClick: onClick,
               className: "rates-card-btn",
             }}
-            active={true}
+            active={auth ? true : false}
           />
           <RatesCard
             image={pro}

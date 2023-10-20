@@ -8,6 +8,7 @@
 - CSS
 - JavaScript
 - React
+- Redux toolkit
 
 ## Как открыть/запустить
 

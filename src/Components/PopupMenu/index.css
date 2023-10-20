@@ -18,14 +18,14 @@
   opacity: 0;
   z-index: -10;
   animation-name: shiftback;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
 }
 
 .popup--open {
   opacity: 1;
   z-index: 10;
   animation-name: shift;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
 }
 
 .popup-container {
@@ -90,6 +90,27 @@
 
 .popup-registrate-btn:hover {
   background-color: #06615f;
+}
+
+.userInfo-popup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userInfo-popup-container img {
+  width: 40px;
+  margin-bottom: 20px;
+}
+
+.userInfo-popup-container p {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.userName-popup-btn {
+  width: 295px;
+  height: 52px;
 }
 
 @keyframes shift {

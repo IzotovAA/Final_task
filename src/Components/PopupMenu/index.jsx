@@ -4,9 +4,21 @@ import { NavLink } from "react-router-dom";
 import Button from "../Button";
 import "./index.css";
 import { AppContext } from "../../App";
+import avatar from "../../img/avatar.jpg";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/reducers/userSlice";
+import { onClickBurger } from "../../services/onClick";
 
-export default function PopupMenu({ onClick, onClickBg, className }) {
+export default function PopupMenu({
+  auth,
+  onClickBg,
+  className,
+  onClickEnter,
+  onClickReg,
+}) {
   const { screenWidth } = useContext(AppContext);
+  const { burgerVisibleWidth } = useContext(AppContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const body = document.body;
@@ -14,7 +26,7 @@ export default function PopupMenu({ onClick, onClickBg, className }) {
     const popup = document.querySelector(".popup-container");
 
     if (popup.className.match("popup--open")) {
-      if (screenWidth >= 1000) {
+      if (screenWidth >= burgerVisibleWidth) {
         body.className = "";
         popupBg.className = "popup-bg popup-bg--hidden";
         popup.className = "popup-container popup--close";
@@ -43,18 +55,39 @@ export default function PopupMenu({ onClick, onClickBg, className }) {
               <NavLink to="/faq">FAQ</NavLink>
             </li>
           </ul>
-          <div className="popup-body-btns">
-            <Button
-              name="Зарегистрироваться"
-              onClick={onClick}
-              className="popup-registrate-btn registrate-btn"
-            />
-            <Button
-              name="Войти"
-              onClick={onClick}
-              className="popup-enter-btn enter-btn"
-            />
-          </div>
+          {!auth ? (
+            <div className="popup-body-btns">
+              <Button
+                name="Зарегистрироваться"
+                onClick={() => {
+                  onClickReg();
+                  onClickBurger();
+                }}
+                className="popup-registrate-btn registrate-btn"
+              />
+              <Button
+                name="Войти"
+                onClick={() => {
+                  onClickEnter();
+                  onClickBurger();
+                }}
+                className="popup-enter-btn enter-btn"
+              />
+            </div>
+          ) : (
+            <div className="userInfo-popup-container">
+              <img src={avatar} alt="avatar" />
+              <p>Алексей А.</p>
+              <Button
+                name="Выйти"
+                onClick={() => {
+                  dispatch(logout());
+                  onClickBurger();
+                }}
+                className="userName-popup-btn enter-btn"
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

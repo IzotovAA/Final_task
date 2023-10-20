@@ -4,25 +4,31 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./Components/Header";
 import MainPage from "./Pages/main/main";
 import Footer from "./Components/Footer";
-import onClickBurger from "./services/onClickBurger";
 import AuthPage from "./Pages/auth";
-import onClickAuth from "./services/onClickAuthEnter";
 import RegPage from "./Pages/reg";
-import onClickAuthEnter from "./services/onClickAuthEnter";
-import onClickAuthReg from "./services/onClickAuthReg";
+import {
+  onClickAuthEnter,
+  onClickAuthReg,
+  onClickBurger,
+} from "./services/onClick";
+import { useSelector } from "react-redux";
+import PopupMenu from "./Components/PopupMenu";
 
 export const AppContext = createContext();
 
-// следующий шаг - реализовать авторизацию, отправку формы
+// localStorage.clear();
 
 export default function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+  const isAuth = useSelector((state) => state.user.isAuth);
+  const burgerVisibleWidth = 800;
+  const popupClass = "preload popup-container popup--close";
+  console.log("App isAuth", isAuth);
 
   let renderCounter = useRef(0);
 
-  console.log("App");
-  // console.log("renderCounter", renderCounter.current);
+  console.log("renderCounter", renderCounter.current);
   renderCounter.current++;
 
   useEffect(() => {
@@ -41,9 +47,11 @@ export default function App() {
   }
 
   return (
-    <AppContext.Provider value={{ screenWidth, renderCounter }}>
+    <AppContext.Provider
+      value={{ screenWidth, burgerVisibleWidth, renderCounter }}
+    >
       <Header
-        auth={false}
+        auth={isAuth}
         onClickReg={() => {
           onClickAuthReg(navigate);
         }}
@@ -52,8 +60,25 @@ export default function App() {
         }}
         onClickBurger={onClickBurger}
       />
+
+      <PopupMenu
+        auth={isAuth}
+        className={popupClass}
+        onClickBg={onClickBurger}
+        onClickEnter={() => {
+          onClickAuthEnter(navigate);
+        }}
+        onClickReg={() => {
+          onClickAuthReg(navigate);
+        }}
+      />
+
       <Routes>
-        <Route path="/" element={<MainPage auth={false} onClick={onClick} />} />
+        <Route
+          path="/"
+          element={<MainPage auth={isAuth} onClick={onClick} />}
+        />
+
         <Route
           path="/authenter"
           element={
@@ -69,6 +94,7 @@ export default function App() {
             />
           }
         />
+
         <Route
           path="/authreg"
           element={
@@ -84,7 +110,11 @@ export default function App() {
             />
           }
         />
-        <Route path="*" element={<MainPage auth={false} onClick={onClick} />} />
+
+        <Route
+          path="*"
+          element={<MainPage auth={isAuth} onClick={onClick} />}
+        />
       </Routes>
       <Footer />
     </AppContext.Provider>

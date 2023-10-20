@@ -14,13 +14,11 @@ export default function RegPage({ onClick, onClickEnter, onClickReg }) {
             <Button
               name="Войти"
               onClick={onClickEnter}
-              // className="authform-btn-enter"
               className="authform-btn-enter"
             />
             <Button
               name="Зарегистрироваться"
               onClick={onClickReg}
-              // className="authform-btn-reg"
               className="authform-btn-reg authform-btn--active"
             />
           </div>

@@ -1,4 +1,4 @@
-export default function onClickBurger() {
+export function onClickBurger() {
   const body = document.body;
   const burger = document.querySelector(".burger");
   const popupBg = document.querySelector(".popup-bg");
@@ -14,4 +14,12 @@ export default function onClickBurger() {
   popupBg.classList.toggle("popup-bg--hidden");
   popup.classList.toggle("popup--close");
   popup.classList.toggle("popup--open");
+}
+
+export function onClickAuthEnter(navigate) {
+  navigate("/authenter");
+}
+
+export function onClickAuthReg(navigate) {
+  navigate("/authreg");
 }
