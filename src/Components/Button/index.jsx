@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Button({
   name,
-  onClick,
+  onClick = () => {},
   className,
   btnType = "button",
   disabled = false,

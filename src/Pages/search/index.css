@@ -1,0 +1,45 @@
+.data-search {
+  width: 94vw;
+  height: calc(100vh - 253px);
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.data-search-form-container {
+}
+
+.data-search-form-container > h1 {
+  width: 56vw;
+  font-family: "Farry", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 48px;
+  letter-spacing: 0.03em;
+}
+
+.data-search-form-container > p {
+  width: 37vw;
+  margin: 20px 0;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+}
+
+.data-search-image-container {
+  width: 30vw;
+}
+
+.data-search-image-1 {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  left: -3vw;
+}
+
+.data-search-image-2 {
+  position: relative;
+  right: -3vw;
+}

@@ -10,9 +10,11 @@ import {
   onClickAuthEnter,
   onClickAuthReg,
   onClickBurger,
+  onClickDataSearch,
 } from "./services/onClick";
 import { useSelector } from "react-redux";
 import PopupMenu from "./Components/PopupMenu";
+import SearchPage from "./Pages/search";
 
 export const AppContext = createContext();
 
@@ -76,7 +78,14 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<MainPage auth={isAuth} onClick={onClick} />}
+          element={
+            <MainPage
+              auth={isAuth}
+              onClick={() => {
+                onClickDataSearch(navigate);
+              }}
+            />
+          }
         />
 
         <Route
@@ -111,11 +120,14 @@ export default function App() {
           }
         />
 
+        <Route path="/datasearch" element={<SearchPage auth={isAuth} />} />
+
         <Route
           path="*"
           element={<MainPage auth={isAuth} onClick={onClick} />}
         />
       </Routes>
+
       <Footer />
     </AppContext.Provider>
   );

@@ -23,7 +23,7 @@ export default function AuthForm({
   const loginData = useSelector((state) => state.user.login);
   const passwordData = useSelector((state) => state.user.password);
 
-  let [loginError, setLoginError] = useState(null);
+  const [loginError, setLoginError] = useState(null);
 
   let enterBtnClass = "authform-btn-enter";
   let regBtnClass = "authform-btn-reg";

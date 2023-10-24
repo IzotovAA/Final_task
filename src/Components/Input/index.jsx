@@ -4,27 +4,51 @@ export default function Input({
   id,
   type,
   name,
-  placeholder,
+  placeholder = "",
   containerClass,
   labelClass,
   inputClass,
   onChange,
+  onFocus = () => {},
+  onBlur = () => {},
+  inputChebox = false,
+  checked = false,
 }) {
   return (
     <>
-      <div className={containerClass}>
-        <label htmlFor={id} className={labelClass}>
-          {name}
-        </label>
+      {!inputChebox ? (
+        <div className={containerClass}>
+          <label htmlFor={id} className={labelClass}>
+            {name}
+          </label>
 
-        <input
-          type={type}
-          id={id}
-          placeholder={placeholder}
-          className={inputClass}
-          onChange={onChange}
-        />
-      </div>
+          <input
+            type={type}
+            id={id}
+            placeholder={placeholder}
+            className={inputClass}
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+        </div>
+      ) : (
+        <div>
+          <input
+            type="checkbox"
+            id={id}
+            className={inputClass}
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            checked={checked}
+          />
+
+          <label htmlFor={id} className={labelClass}>
+            {name}
+          </label>
+        </div>
+      )}
     </>
   );
 }

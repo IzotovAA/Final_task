@@ -29,7 +29,6 @@ export default function Header({
   const [userInfoClass, setUserInfoClass] = useState("userInfo-container");
   const dispatch = useDispatch();
 
-  // const requesStatus = useSelector((state) => state.user.requesStatus);
   const usedCompanyCount = useSelector((state) => state.user.usedCompanyCount);
   const companyLimit = useSelector((state) => state.user.companyLimit);
 

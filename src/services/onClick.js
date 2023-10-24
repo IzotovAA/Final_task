@@ -23,3 +23,7 @@ export function onClickAuthEnter(navigate) {
 export function onClickAuthReg(navigate) {
   navigate("/authreg");
 }
+
+export function onClickDataSearch(navigate) {
+  navigate("/datasearch");
+}
