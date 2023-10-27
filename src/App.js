@@ -15,6 +15,7 @@ import {
 import { useSelector } from "react-redux";
 import PopupMenu from "./Components/PopupMenu";
 import SearchPage from "./Pages/search";
+import SearchResultPage from "./Pages/result";
 
 export const AppContext = createContext();
 
@@ -121,6 +122,11 @@ export default function App() {
         />
 
         <Route path="/datasearch" element={<SearchPage auth={isAuth} />} />
+
+        <Route
+          path="/datasearch/result"
+          element={<SearchResultPage auth={isAuth} />}
+        />
 
         <Route
           path="*"

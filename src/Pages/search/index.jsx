@@ -5,15 +5,24 @@ import img2 from "../../img/data-search2.svg";
 import img3 from "../../img/data-search3.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { initSearchForm } from "../../store/reducers/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function SearchPage({ auth }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!auth) {
       navigate("/");
     }
   }, [auth]);
+
+  console.log("SearchPage");
+
+  useEffect(() => {
+    dispatch(initSearchForm());
+  }, []);
 
   return (
     <section className="data-search">

@@ -1,0 +1,7 @@
+.border-right-line {
+  display: block;
+  width: 2px;
+  height: 124px;
+  background-color: #949494;
+  opacity: 0.4;
+}

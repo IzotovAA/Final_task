@@ -18,8 +18,10 @@ const initialState = {
   documentsLimit: 0,
   startDate: "",
   endDate: "",
+  requestHistogramsStatus: null,
   requestPublicationsStatus: null,
   requestDocumentsStatus: null,
+  histograms: [],
   publicationsId: [],
   documents: [],
 };
@@ -106,43 +108,75 @@ export const userSlice = createSlice({
     setLogin: (state, action) => {
       state.login = action.payload;
     },
+
     setPassword: (state, action) => {
       state.password = action.payload;
     },
+
     login: (state) => {
       state.isAuth = true;
     },
+
     logout: (state) => {
       state.isAuth = false;
       state.login = "";
       state.password = "";
+      state.requestCompanyStatus = null;
       state.usedCompanyCount = -1;
       state.companyLimit = -1;
-      state.requestCompanyStatus = null;
       state.error = null;
+      state.inn = "";
+      state.tonality = "any";
+      state.documentsLimit = 0;
+      state.startDate = "";
+      state.endDate = "";
+      state.requestHistogramsStatus = null;
+      state.requestPublicationsStatus = null;
+      state.requestDocumentsStatus = null;
+      state.histograms = [];
+      state.publicationsId = [];
+      state.documents = [];
 
       removeFromLocalStorage("token");
       removeFromLocalStorage("expire");
     },
+
     setInn: (state, action) => {
       state.inn = action.payload;
       console.log("state.inn", state.inn);
     },
+
     setDocumentsLimit: (state, action) => {
       state.documentsLimit = action.payload;
       console.log("state.documentsLimit", state.documentsLimit);
     },
+
     setStartDate: (state, action) => {
       let startDate = action.payload + "T00:00:00+03:00";
       state.startDate = startDate;
       console.log("state.startDate", state.startDate);
       // "startDate": "2019-01-01T00:00:00+03:00",
     },
+
     setEndDate: (state, action) => {
       let endDate = action.payload + "T23:59:59+03:00";
       state.endDate = endDate;
       console.log("state.endDate", state.endDate);
       // "endDate": "2022-08-31T23:59:59+03:00"
+    },
+
+    initSearchForm: (state) => {
+      state.inn = "";
+      state.documentsLimit = 0;
+      state.startDate = "";
+      state.endDate = "";
+
+      state.requestHistogramsStatus = null;
+      state.requestPublicationsStatus = null;
+      state.requestDocumentsStatus = null;
+      state.histograms = [];
+      state.publicationsId = [];
+      state.documents = [];
     },
   },
   extraReducers: {
@@ -158,6 +192,20 @@ export const userSlice = createSlice({
     [companyLimitData.rejected]: (state, action) => {
       state.error = action.payload;
       state.requestCompanyStatus = null;
+    },
+
+    [histograms.pending]: (state) => {
+      state.requestHistogramsStatus = "inProgress";
+      state.error = null;
+    },
+    [histograms.fulfilled]: (state, action) => {
+      state.histograms = action.payload;
+      console.log("state.histograms userSlice", state.histograms);
+      state.requestHistogramsStatus = "complete";
+    },
+    [histograms.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.requestHistogramsStatus = null;
     },
 
     [publications.pending]: (state) => {
@@ -177,12 +225,10 @@ export const userSlice = createSlice({
     [documents.pending]: (state) => {
       state.requestDocumentsStatus = "inProgress";
       state.error = null;
-      const idsArr = state.publicationsId;
-      console.log("idsArr", idsArr);
     },
     [documents.fulfilled]: (state, action) => {
-      state.documents = action.payload.items;
-      console.log("state.publicationsId userSlice", state.publicationsId);
+      state.documents = action.payload;
+      console.log("state.documents userSlice", state.documents);
       state.requestDocumentsStatus = "complete";
     },
     [documents.rejected]: (state, action) => {
@@ -201,6 +247,7 @@ export const {
   setDocumentsLimit,
   setStartDate,
   setEndDate,
+  initSearchForm,
 } = userSlice.actions;
 
 export default userSlice.reducer;

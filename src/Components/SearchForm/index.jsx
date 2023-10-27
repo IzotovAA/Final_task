@@ -3,7 +3,7 @@ import "./index.css";
 // import arrow from "../../img/date-arrow.svg";
 import Checkbox from "../Checkbox";
 import Button from "../Button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import checkINN from "../../services/checkINN";
 import {
@@ -25,8 +25,21 @@ export default function SearchForm({ auth }) {
   const documentsLimit = useSelector((state) => state.user.documentsLimit);
   const startDate = useSelector((state) => state.user.startDate);
   const endDate = useSelector((state) => state.user.endDate);
+  const requestPublicationsStatus = useSelector(
+    (state) => state.user.requestPublicationsStatus
+  );
+  const publicationsId = useSelector((state) => state.user.publicationsId);
+  const documentsArr = useSelector((state) => state.user.documents);
+  // const requestError = useSelector((state) => state.user.error);
   const [innError, setInnError] = useState(null);
   const [rangeError, setRangeError] = useState(null);
+
+  console.log(
+    "SearchForm requestPublicationsStatus",
+    requestPublicationsStatus
+  );
+
+  console.log("SearchForm documentsArr", documentsArr);
 
   useEffect(() => {
     if (!auth) {
@@ -36,6 +49,8 @@ export default function SearchForm({ auth }) {
 
   useEffect(() => {
     console.log("useEffect dispatch");
+    console.log("useEffect dispatch startDate", startDate);
+    console.log("useEffect dispatch endDate", endDate);
 
     const submitBtn = document.querySelector(".search-form-checkbox-btn");
     if (inn.length === 10 && documentsLimit && startDate && endDate) {
@@ -54,6 +69,8 @@ export default function SearchForm({ auth }) {
       }
     } else submitBtn.disabled = true;
   }, [inn, documentsLimit, startDate, endDate]);
+
+  console.log("requestPublicationsStatus", requestPublicationsStatus);
 
   const innHandler = (event) => {
     setInnError(null);
@@ -108,18 +125,11 @@ export default function SearchForm({ auth }) {
       inn,
       documentsLimit
     );
-    // console.log("requestHistogramsObj", requestHistogramsObj);
-    // console.log(
-    //   "JSON.parse(requestHistogramsObj)",
-    //   JSON.parse(requestHistogramsObj)
-    // );
+
     dispatch(histograms(requestHistogramsObj));
     dispatch(publications(requestHistogramsObj));
+    navigate("/datasearch/result");
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // доработать запрос публикаций по ID, он должен начинаться только после завершения запроса гистрограм и ID публикаций
-    // попробовать в юсэффекте отслеживая статус предыдущего запроса в хранилище
-    dispatch(documents(requestHistogramsObj));
     console.log("submitHandler end");
   };
 
