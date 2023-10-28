@@ -1,4 +1,4 @@
-import { getFromLocalStorage } from "../helpers/localStorageHelpers";
+import { getFromLocalStorage } from "./localStorage";
 
 export default function setInitialState() {
   const token = getFromLocalStorage("token");

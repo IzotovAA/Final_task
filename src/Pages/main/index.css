@@ -164,10 +164,142 @@
     margin-top: 4vw;
   }
 }
-
+/* остановился на наших тарифах, продолжить делать адаптацию */
 @media screen and (max-width: 950px) {
   .arrow-next {
     left: 85vw;
+  }
+
+  .search h1 {
+    font-size: 38px;
+    line-height: 46px;
+  }
+
+  .search p {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .why {
+    overflow: hidden;
+  }
+
+  .why-picture {
+    width: 850px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .search {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-info {
+    width: 92vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search h1 {
+    width: 92vw;
+  }
+
+  .search p {
+    margin-top: 20px;
+  }
+
+  .search-btn {
+    align-self: center;
+  }
+
+  .search img {
+    width: 92vw;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .arrow-next {
+    left: 83vw;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .arrow-next {
+    left: 81vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search h1 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+
+  .search-btn {
+    margin: 30px 0 30px 0;
+  }
+
+  .why h1 {
+    font-size: 34px;
+    line-height: 44px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .arrow-next {
+    left: 80vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .why h1 {
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.01em;
+  }
+
+  .why-slider__item {
+    width: 298px !important;
+    height: 188px !important;
+    margin: 10px auto;
+  }
+
+  .why-slider__item img {
+    width: 45px !important;
+    margin: 10px 20px !important;
+  }
+
+  .why-slider__item p {
+    font-size: 16px;
+  }
+
+  .arrow-next {
+    left: 78vw;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .search h1 {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  .search p {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0em;
+  }
+
+  .search-btn {
+    margin: 30px 0 30px 0;
+  }
+
+  .arrow-back {
+    left: -10px;
+  }
+
+  .arrow-next {
+    left: 76vw;
   }
 }
 /* медиа запросы */

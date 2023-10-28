@@ -61,7 +61,7 @@ export default function Header({
       // искуственная задержка для проверки работы лоадера
       setTimeout(() => {
         dispatch(companyLimitData());
-      }, 2000);
+      }, 1000);
     }
   }, [auth]);
 
@@ -101,24 +101,43 @@ export default function Header({
           </div>
         ) : usedCompanyCount >= 0 && companyLimit >= 0 ? (
           <>
-            <div className="available-services">
-              <div className="available-services-text-container">
-                <div className="available-services-text-used">
-                  Использовано компаний
-                </div>
-                <div className="available-services-text-limit">
-                  Лимит по компаниям
+            {screenWidth <= 450 ? (
+              <div className="available-services">
+                <div className="available-services-text-container">
+                  <div className="available-services-text-used">
+                    Использовано компаний
+                  </div>
+                  <div className="available-services-digit-used">
+                    {usedCompanyCount}
+                  </div>
+                  <div className="available-services-text-limit">
+                    Лимит по компаниям
+                  </div>
+                  <div className="available-services-digit-limit">
+                    {companyLimit}
+                  </div>
                 </div>
               </div>
-              <div className="available-services-digit-container">
-                <div className="available-services-digit-used">
-                  {usedCompanyCount}
+            ) : (
+              <div className="available-services">
+                <div className="available-services-text-container">
+                  <div className="available-services-text-used">
+                    Использовано компаний
+                  </div>
+                  <div className="available-services-text-limit">
+                    Лимит по компаниям
+                  </div>
                 </div>
-                <div className="available-services-digit-limit">
-                  {companyLimit}
+                <div className="available-services-digit-container">
+                  <div className="available-services-digit-used">
+                    {usedCompanyCount}
+                  </div>
+                  <div className="available-services-digit-limit">
+                    {companyLimit}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             <UserInfo
               name="Алексей А."

@@ -16,7 +16,6 @@
 .inn-container,
 .doc-qty-container,
 .tonality-container {
-  /* width: 28%; */
   width: 56%;
   display: flex;
   flex-direction: column;
@@ -72,7 +71,6 @@
 }
 
 .range-container {
-  /* width: 42.6%; */
   width: 85%;
   display: flex;
   align-items: flex-end;

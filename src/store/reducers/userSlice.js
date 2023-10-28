@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { removeFromLocalStorage } from "../../helpers/localStorageHelpers";
+import { removeFromLocalStorage } from "../../services/localStorage";
 import setInitialState from "../../services/setInitialState";
 import { authService } from "../../services/auth";
 
@@ -24,6 +24,7 @@ const initialState = {
   histograms: [],
   publicationsId: [],
   documents: [],
+  completedDocsRequestsCount: 0,
 };
 
 export const companyLimitData = createAsyncThunk(
@@ -45,6 +46,7 @@ export const companyLimitData = createAsyncThunk(
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   }
@@ -62,6 +64,7 @@ export const histograms = createAsyncThunk(
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   }
@@ -79,6 +82,7 @@ export const publications = createAsyncThunk(
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   }
@@ -87,16 +91,28 @@ export const publications = createAsyncThunk(
 export const documents = createAsyncThunk(
   "user/documents",
   async function (requestData) {
+    console.log(
+      "documents createAsyncThunk JSON.parse(requestData)",
+      JSON.parse(requestData)
+    );
     try {
       const documents = await authService.getDocuments(requestData);
       console.log("documents", documents);
-      console.log("documents.data", documents.data);
+      console.log("createAsyncThunk documents.data", documents.data);
 
       return documents.data;
     } catch (error) {
       if (error.response.data.message) {
-        console.log("error: ", error.response.data.message);
-      } else console.log("error: ", error);
+        console.log(
+          "documents createAsyncThunk error: ",
+          error.response.data.message
+        );
+        // throw new error(error.response.data.message);
+        alert(error.response.data.message);
+      } else {
+        console.log("error: ", error);
+        // return error;
+      }
     }
   }
 );
@@ -136,6 +152,7 @@ export const userSlice = createSlice({
       state.histograms = [];
       state.publicationsId = [];
       state.documents = [];
+      state.completedDocsRequestsCount = 0;
 
       removeFromLocalStorage("token");
       removeFromLocalStorage("expire");
@@ -177,6 +194,7 @@ export const userSlice = createSlice({
       state.histograms = [];
       state.publicationsId = [];
       state.documents = [];
+      state.completedDocsRequestsCount = 0;
     },
   },
   extraReducers: {
@@ -223,15 +241,25 @@ export const userSlice = createSlice({
     },
 
     [documents.pending]: (state) => {
+      console.log("documents.pending");
       state.requestDocumentsStatus = "inProgress";
       state.error = null;
     },
     [documents.fulfilled]: (state, action) => {
-      state.documents = action.payload;
+      console.log("documents.fulfilled");
+      // state.documents = action.payload;
+      console.log("documents.fulfilled action.payload", action.payload);
+      action.payload.forEach((element) => {
+        state.documents.push(element);
+      });
       console.log("state.documents userSlice", state.documents);
+      state.completedDocsRequestsCount += 1;
       state.requestDocumentsStatus = "complete";
     },
     [documents.rejected]: (state, action) => {
+      console.log("documents.rejected");
+      console.log("documents.rejected action", action);
+
       state.error = action.payload;
       state.requestDocumentsStatus = null;
     },

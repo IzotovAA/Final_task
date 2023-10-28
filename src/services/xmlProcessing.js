@@ -1,6 +1,7 @@
-// доработать функцию обработки xml !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export default function xmlProcessing(object) {
   const parser = new DOMParser();
+
+  console.log("xmlProcessing(object)", object);
 
   const articleDate = object.ok.issueDate.slice(0, 10); // дата публикации
   const articleSourceText = object.ok.source.name; // источник
@@ -25,9 +26,6 @@ export default function xmlProcessing(object) {
   });
 
   const articleBodyText = articleText.replace(regex, ""); // основной текст статьи
-
-  // console.log("function xmlProcessing parsedXml", parsedXml);
-  // console.log("function xmlProcessing documentText", documentText);
 
   return {
     publicationDate: articleDate,

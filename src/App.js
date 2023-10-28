@@ -16,10 +16,18 @@ import { useSelector } from "react-redux";
 import PopupMenu from "./Components/PopupMenu";
 import SearchPage from "./Pages/search";
 import SearchResultPage from "./Pages/result";
+import PrivateRoute from "./services/privateRoute";
 
 export const AppContext = createContext();
 
-// localStorage.clear();
+// сделать адаптацию к разрешениям до мобильного !!!!!!!!!!!!!!!!!!
+
+// если останется время
+// 1. как вытащить из xml DOM вместе с тегами и изображениями
+// 2. переписать createAsyncThunk на новую версию
+// 3. подумать как нормально обработать ошибки запросов
+// 4. сделать анимацию бургера и крестика как в макете
+// 5. улучшить стилизацию инпутов (в том числе при ошибке) в форме запроса
 
 export default function App() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -120,17 +128,21 @@ export default function App() {
             />
           }
         />
-
-        <Route path="/datasearch" element={<SearchPage auth={isAuth} />} />
-
-        <Route
-          path="/datasearch/result"
-          element={<SearchResultPage auth={isAuth} />}
-        />
+        <Route element={<PrivateRoute />}>
+          <Route path="/datasearch" element={<SearchPage />} />
+          <Route path="/datasearch/result" element={<SearchResultPage />} />
+        </Route>
 
         <Route
           path="*"
-          element={<MainPage auth={isAuth} onClick={onClick} />}
+          element={
+            <MainPage
+              auth={isAuth}
+              onClick={() => {
+                onClickDataSearch(navigate);
+              }}
+            />
+          }
         />
       </Routes>
 

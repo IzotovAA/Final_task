@@ -9,7 +9,7 @@ import yandex from "../../img/yandex.svg";
 import { setLogin, setPassword, login } from "../../store/reducers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { authService } from "../../services/auth";
-import { setToLocalStorage } from "../../helpers/localStorageHelpers";
+import { setToLocalStorage } from "../../services/localStorage";
 
 export default function AuthForm({
   className,
@@ -66,13 +66,11 @@ export default function AuthForm({
           <Button
             name="Войти"
             onClick={onClickEnter}
-            // className="authform-btn-enter"
             className={enterBtnClass}
           />
           <Button
             name="Зарегистрироваться"
             onClick={onClickReg}
-            // className="authform-btn-reg"
             className={regBtnClass}
           />
         </div>

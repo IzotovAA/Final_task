@@ -3,11 +3,10 @@ import "./index.css";
 // import arrow from "../../img/date-arrow.svg";
 import Checkbox from "../Checkbox";
 import Button from "../Button";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import checkINN from "../../services/checkINN";
 import {
-  documents,
   histograms,
   publications,
   setDocumentsLimit,
@@ -18,7 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import createRequestHistogramsObj from "../../services/createRequestHistogramsObj";
 
-export default function SearchForm({ auth }) {
+export default function SearchForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inn = useSelector((state) => state.user.inn);
@@ -28,9 +27,7 @@ export default function SearchForm({ auth }) {
   const requestPublicationsStatus = useSelector(
     (state) => state.user.requestPublicationsStatus
   );
-  const publicationsId = useSelector((state) => state.user.publicationsId);
   const documentsArr = useSelector((state) => state.user.documents);
-  // const requestError = useSelector((state) => state.user.error);
   const [innError, setInnError] = useState(null);
   const [rangeError, setRangeError] = useState(null);
 
@@ -40,12 +37,6 @@ export default function SearchForm({ auth }) {
   );
 
   console.log("SearchForm documentsArr", documentsArr);
-
-  useEffect(() => {
-    if (!auth) {
-      navigate("/");
-    }
-  }, [auth]);
 
   useEffect(() => {
     console.log("useEffect dispatch");

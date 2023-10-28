@@ -14,7 +14,6 @@ export default function ArticleCard({
   buttonClass,
   wordCountClass,
   articleObj,
-  // cardKey,
 }) {
   let attribute = "Новость";
 
@@ -34,7 +33,6 @@ export default function ArticleCard({
             {articleObj.publicationDate}
           </div>
           <div className={publicationSourceClass}>{articleObj.source}</div>
-          {/* <div>"ключ "{cardKey}</div> */}
         </div>
         <h2 className={titleClass}>{articleObj.title}</h2>
         <div className={attributeClass}>{attribute}</div>

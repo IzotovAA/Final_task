@@ -1,5 +1,5 @@
 import { instance } from "../api/axios";
-import { getFromLocalStorage } from "../helpers/localStorageHelpers";
+import { getFromLocalStorage } from "./localStorage";
 
 export const authService = {
   async login(userData) {
@@ -9,6 +9,7 @@ export const authService = {
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   },
@@ -24,6 +25,7 @@ export const authService = {
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   },
@@ -40,6 +42,7 @@ export const authService = {
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   },
@@ -56,6 +59,7 @@ export const authService = {
     } catch (error) {
       if (error.response.data.message) {
         console.log("error: ", error.response.data.message);
+        alert(error.response.data.message);
       } else console.log("error: ", error);
     }
   },
@@ -71,8 +75,14 @@ export const authService = {
       return data;
     } catch (error) {
       if (error.response.data.message) {
+        // throw new error(error.response.data.message);
         console.log("error: ", error.response.data.message);
-      } else console.log("error: ", error);
+        // return error.response.data.message;
+        alert(error.response.data.message);
+      } else {
+        console.log("error: ", error);
+        // return error;
+      }
     }
   },
 };

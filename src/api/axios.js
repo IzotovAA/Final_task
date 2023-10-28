@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getFromLocalStorage } from "../helpers/localStorageHelpers";
+import { getFromLocalStorage } from "../services/localStorage";
 
 export const instance = axios.create({
   baseURL: "https://gateway.scan-interfax.ru/api/v1/",

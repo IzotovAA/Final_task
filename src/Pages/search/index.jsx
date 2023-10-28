@@ -3,20 +3,12 @@ import "./index.css";
 import img1 from "../../img/data-search1.svg";
 import img2 from "../../img/data-search2.svg";
 import img3 from "../../img/data-search3.svg";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { initSearchForm } from "../../store/reducers/userSlice";
 import { useDispatch } from "react-redux";
 
-export default function SearchPage({ auth }) {
-  const navigate = useNavigate();
+export default function SearchPage() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!auth) {
-      navigate("/");
-    }
-  }, [auth]);
 
   console.log("SearchPage");
 
@@ -32,7 +24,7 @@ export default function SearchPage({ auth }) {
           Задайте параметры поиска. <br />
           Чем больше заполните, тем точнее поиск
         </p>
-        <SearchForm auth={auth} />
+        <SearchForm />
       </div>
       <div className="data-search-image-container">
         <div className="data-search-image-1">

@@ -27,8 +27,17 @@ import { AppContext } from "../../App";
 export default function MainPage({ auth, onClick }) {
   const { screenWidth } = useContext(AppContext);
   const [slidesQty, setSlidesQty] = useState(calcSlidesQty(screenWidth));
+  let slideWidth = 400,
+    slideHeight = 225;
 
   useEffect(() => {
+    if (screenWidth <= 500) {
+      slideWidth = 298;
+      slideHeight = 188;
+    } else {
+      slideWidth = 400;
+      slideHeight = 225;
+    }
     setSlidesQty(calcSlidesQty(screenWidth));
   }, [screenWidth]);
 
@@ -42,10 +51,18 @@ export default function MainPage({ auth, onClick }) {
             о компании <br />
             по его ИНН
           </h1>
-          <p>
-            Комплексный анализ публикаций, получение данных <br />в формате PDF
-            на электронную почту.
-          </p>
+          {screenWidth <= 450 ? (
+            <p>
+              Комплексный анализ публикаций, получение данных в формате PDF на
+              электронную почту.
+            </p>
+          ) : (
+            <p>
+              Комплексный анализ публикаций, получение данных <br />в формате
+              PDF на электронную почту.
+            </p>
+          )}
+
           {auth ? (
             <Button
               name="Запросить данные"
@@ -58,12 +75,18 @@ export default function MainPage({ auth, onClick }) {
       </section>
 
       <section className="why">
-        <h1>Почему именно мы</h1>
+        {screenWidth <= 500 ? (
+          <h1>
+            Почему <br /> именно мы
+          </h1>
+        ) : (
+          <h1>Почему именно мы</h1>
+        )}
 
         <div className="why-slider-container">
           <CarouselProvider
-            naturalSlideWidth={400}
-            naturalSlideHeight={225}
+            naturalSlideWidth={slideWidth}
+            naturalSlideHeight={slideHeight}
             totalSlides={6}
             visibleSlides={slidesQty}
             infinite={true}
@@ -142,7 +165,6 @@ export default function MainPage({ auth, onClick }) {
             ]}
             buttonsParams={{
               name: "Подробнее",
-              onClick: onClick,
               className: "rates-card-btn",
             }}
             active={auth ? true : false}
@@ -162,7 +184,6 @@ export default function MainPage({ auth, onClick }) {
             ]}
             buttonsParams={{
               name: "Подробнее",
-              onClick: onClick,
               className: "rates-card-btn",
             }}
             active={false}
@@ -182,7 +203,6 @@ export default function MainPage({ auth, onClick }) {
             ]}
             buttonsParams={{
               name: "Подробнее",
-              onClick: onClick,
               className: "rates-card-btn",
             }}
             active={false}

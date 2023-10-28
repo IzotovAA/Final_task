@@ -18,9 +18,9 @@ import Loader from "../../Components/Loader";
 import xmlProcessing from "../../services/xmlProcessing";
 import ArticleCard from "../../Components/Cards/ArticleCard";
 import Button from "../../Components/Button";
+import docsObjProcessing from "../../services/docsObjProcessing";
 
-// доработать приватность страниц если пользователь не авторизован
-export default function SearchResultPage({ auth }) {
+export default function SearchResultPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -33,33 +33,32 @@ export default function SearchResultPage({ auth }) {
   const requestDocumentsStatus = useSelector(
     (state) => state.user.requestDocumentsStatus
   );
+  const error = useSelector((state) => state.user.error);
+  const completedDocsRequestsCount = useSelector(
+    (state) => state.user.completedDocsRequestsCount
+  );
 
   const histograms = useSelector((state) => state.user.histograms);
   const publicationsId = useSelector((state) => state.user.publicationsId);
   const documentsArr = useSelector((state) => state.user.documents);
-  const [documentsForRender, setDocumentsForRender] = useState(
-    documentsArr.length > 0 ? documentsArr.slice(0, 10) : []
-  );
+  const [documentsForRender, setDocumentsForRender] = useState([]);
   const [totalQty, setTotalQty] = useState(0);
   const [moreBtnClass, setMoreBtnClass] = useState(
     "search-result-documents-btn"
   );
-  // const [renderIndex, setRenderIndex] = useState(20)
   let renderIndex = useRef(10);
+  let docsRequestsCount = useRef(15);
   let slideIndex = 0;
   let riskIndex = 0;
   let cardIndex = 1;
 
   // console.log("histograms", histograms);
+  // console.log("error", error);
+  console.log("completedDocsRequestsCount", completedDocsRequestsCount);
+  console.log("docsRequestsCount.current", docsRequestsCount.current);
   console.log("requestDocumentsStatus", requestDocumentsStatus);
   console.log("documentsArr", documentsArr);
   console.log("documentsForRender", documentsForRender);
-
-  useEffect(() => {
-    if (!auth) {
-      navigate("/");
-    }
-  }, [auth]);
 
   useEffect(() => {
     if (requestHistogramsStatus === "complete") {
@@ -83,15 +82,32 @@ export default function SearchResultPage({ auth }) {
         requestDocumentsObj.ids.push(element.encodedId);
       });
       console.log("requestDocumentsObj", requestDocumentsObj);
-      dispatch(documents(JSON.stringify(requestDocumentsObj)));
+      console.log("requestDocumentsObj.ids[1]", requestDocumentsObj.ids[1]);
+
+      if (requestDocumentsObj.ids.length <= 100) {
+        dispatch(documents(JSON.stringify(requestDocumentsObj)));
+        docsRequestsCount.current = 1;
+      } else {
+        const requestData = docsObjProcessing(requestDocumentsObj.ids);
+        requestData.forEach((element) => {
+          console.log("element !!!!!!!!!!!!!!!!", element);
+          dispatch(documents(JSON.stringify(element)));
+        });
+        console.log("requestData.length", requestData.length);
+        docsRequestsCount.current = requestData.length;
+      }
     }
   }, [requestPublicationsStatus]);
 
   useEffect(() => {
-    if (documentsArr.length) {
+    if (
+      documentsArr &&
+      documentsArr.length &&
+      docsRequestsCount.current === completedDocsRequestsCount
+    ) {
       setDocumentsForRender(documentsArr.slice(0, 10));
     }
-  }, [requestDocumentsStatus]);
+  }, [requestDocumentsStatus, completedDocsRequestsCount]);
 
   useEffect(() => {
     if (requestDocumentsStatus && renderIndex.current >= documentsArr.length) {
@@ -170,11 +186,11 @@ export default function SearchResultPage({ auth }) {
           </div>
         </div>
 
-        {/* реализовать ленивую подгрузку карточек (по 10шт.) по клику кнопки*/}
         <div className="search-result-documents-container">
           <h2>Список документов</h2>
           <div className="search-result-documents-cards">
-            {requestDocumentsStatus === "complete" ? (
+            {requestDocumentsStatus === "complete" &&
+            docsRequestsCount.current === completedDocsRequestsCount ? (
               documentsForRender.map((elem) => {
                 return (
                   <ArticleCard
@@ -190,16 +206,35 @@ export default function SearchResultPage({ auth }) {
                     buttonClass="article-card-button-btn"
                     wordCountClass="article-card-button-wordcount"
                     articleObj={xmlProcessing(elem)}
-                    // cardKey={cardIndex}
                     key={cardIndex++}
                   />
                 );
               })
             ) : (
-              <div>Ошибка. Массив документов отсутствует</div>
+              <>
+                {docsRequestsCount.current === completedDocsRequestsCount &&
+                !documentsForRender ? (
+                  <>
+                    <Button
+                      name="Попробовать ещё"
+                      className="search-result-documents-btn"
+                      onClick={() => {
+                        navigate("/datasearch");
+                      }}
+                    />
+                    <div>{error ? error.response.data.message : null}</div>
+                  </>
+                ) : (
+                  <div className="search-result-documents-cards--loader">
+                    <Loader />
+                    <p>Загружаем данные</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
-          {requestDocumentsStatus ? (
+          {requestDocumentsStatus === "complete" &&
+          docsRequestsCount.current === completedDocsRequestsCount ? (
             <Button
               name="Показать больше"
               className={moreBtnClass}
