@@ -18,7 +18,6 @@ import Loader from "../../Components/Loader";
 import xmlProcessing from "../../services/xmlProcessing";
 import ArticleCard from "../../Components/Cards/ArticleCard";
 import Button from "../../Components/Button";
-import docsObjProcessing from "../../services/docsObjProcessing";
 
 export default function SearchResultPage() {
   const navigate = useNavigate();
@@ -34,30 +33,26 @@ export default function SearchResultPage() {
     (state) => state.user.requestDocumentsStatus
   );
   const error = useSelector((state) => state.user.error);
-  const completedDocsRequestsCount = useSelector(
-    (state) => state.user.completedDocsRequestsCount
-  );
-
   const histograms = useSelector((state) => state.user.histograms);
   const publicationsId = useSelector((state) => state.user.publicationsId);
-  const documentsArr = useSelector((state) => state.user.documents);
-  const [documentsForRender, setDocumentsForRender] = useState([]);
+  const documentsForRender = useSelector((state) => state.user.documents);
   const [totalQty, setTotalQty] = useState(0);
   const [moreBtnClass, setMoreBtnClass] = useState(
     "search-result-documents-btn"
   );
-  let renderIndex = useRef(10);
-  let docsRequestsCount = useRef(15);
+  const requestDocumentsObj = { ids: [] };
+  let sliceIndex1 = useRef(0);
+  let sliceIndex2 = useRef(10);
   let slideIndex = 0;
   let riskIndex = 0;
   let cardIndex = 1;
 
   // console.log("histograms", histograms);
   // console.log("error", error);
-  console.log("completedDocsRequestsCount", completedDocsRequestsCount);
-  console.log("docsRequestsCount.current", docsRequestsCount.current);
+  // console.log("completedDocsRequestsCount", completedDocsRequestsCount);
+  // console.log("docsRequestsCount.current", docsRequestsCount.current);
   console.log("requestDocumentsStatus", requestDocumentsStatus);
-  console.log("documentsArr", documentsArr);
+  // console.log("documentsArr", documentsArr);
   console.log("documentsForRender", documentsForRender);
 
   useEffect(() => {
@@ -77,43 +72,20 @@ export default function SearchResultPage() {
     console.log("useEffect зависит от requestPublicationsStatus");
     if (requestPublicationsStatus === "complete") {
       console.log("publicationsId", publicationsId);
-      const requestDocumentsObj = { ids: [] };
-      publicationsId.forEach((element) => {
-        requestDocumentsObj.ids.push(element.encodedId);
-      });
-      console.log("requestDocumentsObj", requestDocumentsObj);
-      console.log("requestDocumentsObj.ids[1]", requestDocumentsObj.ids[1]);
 
-      if (requestDocumentsObj.ids.length <= 100) {
-        dispatch(documents(JSON.stringify(requestDocumentsObj)));
-        docsRequestsCount.current = 1;
-      } else {
-        const requestData = docsObjProcessing(requestDocumentsObj.ids);
-        requestData.forEach((element) => {
-          console.log("element !!!!!!!!!!!!!!!!", element);
-          dispatch(documents(JSON.stringify(element)));
-        });
-        console.log("requestData.length", requestData.length);
-        docsRequestsCount.current = requestData.length;
-      }
+      requestDocumentsObj.ids = publicationsId.slice(
+        sliceIndex1.current,
+        sliceIndex2.current
+      );
+      dispatch(documents(JSON.stringify(requestDocumentsObj)));
     }
   }, [requestPublicationsStatus]);
 
   useEffect(() => {
-    if (
-      documentsArr &&
-      documentsArr.length &&
-      docsRequestsCount.current === completedDocsRequestsCount
-    ) {
-      setDocumentsForRender(documentsArr.slice(0, 10));
-    }
-  }, [requestDocumentsStatus, completedDocsRequestsCount]);
-
-  useEffect(() => {
-    if (requestDocumentsStatus && renderIndex.current >= documentsArr.length) {
+    if (requestDocumentsStatus && sliceIndex2.current > publicationsId.length) {
       setMoreBtnClass("search-result-documents-btn hidden");
     } else setMoreBtnClass("search-result-documents-btn");
-  }, [renderIndex.current]);
+  }, [sliceIndex2.current]);
 
   return (
     <>
@@ -189,8 +161,7 @@ export default function SearchResultPage() {
         <div className="search-result-documents-container">
           <h2>Список документов</h2>
           <div className="search-result-documents-cards">
-            {requestDocumentsStatus === "complete" &&
-            docsRequestsCount.current === completedDocsRequestsCount ? (
+            {documentsForRender.length ? (
               documentsForRender.map((elem) => {
                 return (
                   <ArticleCard
@@ -212,8 +183,8 @@ export default function SearchResultPage() {
               })
             ) : (
               <>
-                {docsRequestsCount.current === completedDocsRequestsCount &&
-                !documentsForRender ? (
+                {requestDocumentsStatus === "complete" &&
+                !documentsForRender.length ? (
                   <>
                     <Button
                       name="Попробовать ещё"
@@ -224,29 +195,26 @@ export default function SearchResultPage() {
                     />
                     <div>{error ? error.response.data.message : null}</div>
                   </>
-                ) : (
-                  <div className="search-result-documents-cards--loader">
-                    <Loader />
-                    <p>Загружаем данные</p>
-                  </div>
-                )}
+                ) : null}
               </>
             )}
           </div>
-          {requestDocumentsStatus === "complete" &&
-          docsRequestsCount.current === completedDocsRequestsCount ? (
-            <Button
-              name="Показать больше"
-              className={moreBtnClass}
-              onClick={() => {
-                renderIndex.current += 10;
-                console.log("renderIndex", renderIndex.current);
-                setDocumentsForRender(
-                  documentsArr.slice(0, renderIndex.current)
-                );
-              }}
-            />
-          ) : null}
+
+          <Button
+            name="Показать больше"
+            className={moreBtnClass}
+            onClick={() => {
+              sliceIndex1.current += 10;
+              sliceIndex2.current += 10;
+              console.log("sliceIndex2.current", sliceIndex2.current);
+
+              requestDocumentsObj.ids = publicationsId.slice(
+                sliceIndex1.current,
+                sliceIndex2.current
+              );
+              dispatch(documents(JSON.stringify(requestDocumentsObj)));
+            }}
+          />
         </div>
       </section>
     </>

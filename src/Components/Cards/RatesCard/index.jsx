@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import Button from "../../Button";
 import checkMark from "../../../img/check-mark.svg";
+import { AppContext } from "../../../App";
 
 export default function RatesCard({
   image,
@@ -15,6 +16,8 @@ export default function RatesCard({
   buttonsParams,
   active = false,
 }) {
+  const { screenWidth } = useContext(AppContext);
+
   let currentRate = (
     <div className="notactive-rate">
       <p>Текущий тариф</p>
@@ -40,13 +43,27 @@ export default function RatesCard({
   return (
     <div className={cardClass}>
       <div className={headerClass}>
-        <div className="card-header-info">
-          <h2>{cardName}</h2>
-          <p>{cardNameText}</p>
-        </div>
-        <div>
-          <img src={image} alt="card-pic" />
-        </div>
+        {screenWidth <= 500 ? (
+          <>
+            <div className="card-header-info">
+              <h2>{cardName}</h2>
+              <img src={image} alt="card-pic" />
+            </div>
+            <div>
+              <p>{cardNameText}</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="card-header-info">
+              <h2>{cardName}</h2>
+              <p>{cardNameText}</p>
+            </div>
+            <div>
+              <img src={image} alt="card-pic" />
+            </div>
+          </>
+        )}
       </div>
       <div className="card-body">
         <div className="card-body-prize-container">

@@ -163,8 +163,12 @@
   .search-btn {
     margin-top: 4vw;
   }
+
+  .why {
+    margin-bottom: 8vw;
+  }
 }
-/* остановился на наших тарифах, продолжить делать адаптацию */
+
 @media screen and (max-width: 950px) {
   .arrow-next {
     left: 85vw;
@@ -225,8 +229,16 @@
 }
 
 @media screen and (max-width: 650px) {
+  .why {
+    margin-bottom: 13vw;
+  }
+
   .arrow-next {
     left: 81vw;
+  }
+
+  .rates-cards-container {
+    margin: 20px auto 40px auto;
   }
 }
 
@@ -253,6 +265,14 @@
 }
 
 @media screen and (max-width: 500px) {
+  .search {
+    width: 92.5vw;
+  }
+
+  .why {
+    width: 92.5vw;
+  }
+
   .why h1 {
     font-size: 28px;
     line-height: 34px;
@@ -277,6 +297,28 @@
   .arrow-next {
     left: 78vw;
   }
+
+  .rates {
+    width: 92.5vw;
+  }
+
+  .rates h1 {
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.01em;
+  }
+
+  .rates-cards-container {
+    margin: 10px auto 30px auto;
+  }
+
+  .footer img {
+    width: 110px;
+  }
+
+  .footer-info {
+    margin: 25px 0;
+  }
 }
 
 @media screen and (max-width: 450px) {
@@ -299,7 +341,7 @@
   }
 
   .arrow-next {
-    left: 76vw;
+    left: 74vw;
   }
 }
 /* медиа запросы */

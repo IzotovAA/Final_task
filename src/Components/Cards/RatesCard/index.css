@@ -1,5 +1,5 @@
 .rates-card {
-  min-width: 415px;
+  width: 415px;
   box-shadow: 0 0 5px 5px #00000033;
   border-radius: 10px;
   margin: 30px 5px;
@@ -167,4 +167,59 @@
   cursor: pointer;
   background-color: rgb(30, 165, 130);
   color: #ffffff;
+}
+
+@media screen and (max-width: 500px) {
+  .rates-card {
+    width: 335px;
+  }
+
+  .card-header {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .card-header p {
+    margin: 0 0 0 20px;
+  }
+
+  .card-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 0 20px;
+  }
+
+  .card-header-info h2 {
+    font-size: 20px;
+    line-height: 24px;
+    align-self: center;
+  }
+
+  .card-header img {
+    width: 60px;
+    height: 61px;
+    align-self: flex-start;
+  }
+
+  .active-rate,
+  .notactive-rate {
+    display: none;
+  }
+
+  .card-body-prize {
+    margin-top: 20px;
+  }
+
+  .card-body-prize-container p {
+    margin-right: 20px;
+  }
+
+  .rates-card-btn,
+  .rates-card-btn--active {
+    width: 286px;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+  }
 }

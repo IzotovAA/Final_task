@@ -30,10 +30,97 @@
 
 .auth-form {
   width: 30vw;
-  min-width: 355px;
+  min-width: 335px;
   height: 523px;
   border-radius: 10px;
   box-shadow: 0 0 10px 3px #00000026;
   margin-top: 50px;
   margin-left: -25px;
+}
+
+@media screen and (max-width: 1000px) {
+  .auth-info h1 {
+    font-size: 34px;
+    line-height: 40px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .auth-info h1 {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .auth-info img {
+    padding-left: 4vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .auth {
+    width: 92.5vw;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 70px;
+  }
+
+  .auth h1 {
+    font-family: "Farry", sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 36px;
+    letter-spacing: 0.02em;
+  }
+
+  .auth-lock {
+    position: relative;
+    bottom: -65px;
+    left: -55px;
+    margin-top: -20px;
+  }
+
+  .auth-form {
+    width: 60vw;
+    margin-left: 0;
+  }
+
+  .auth-picture {
+    width: 60vw;
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .auth-form {
+    width: 80vw;
+  }
+
+  .auth-picture {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auth h1 {
+    font-size: 22px;
+    line-height: 26px;
+  }
+
+  .auth-form {
+    width: 92vw;
+  }
+
+  .authform-btn-enter,
+  .authform-btn-reg {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+  }
+
+  .auth-picture {
+    width: 92vw;
+  }
 }

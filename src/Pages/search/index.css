@@ -28,18 +28,128 @@
 }
 
 .data-search-image-container {
-  width: 30vw;
+  /* width: 30vw; */
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .data-search-image-1 {
-  margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
   position: relative;
   left: -3vw;
 }
 
+.data-search-image-1__item1 {
+  width: 6.3vw;
+}
+
+.data-search-image-1__item2 {
+  width: 9.8vw;
+}
+
 .data-search-image-2 {
   position: relative;
   right: -3vw;
+  overflow: hidden;
+}
+
+.data-search-image-2 img {
+  width: 28vw;
+}
+
+/* адаптировать страницу поиска */
+@media screen and (max-width: 1200px) {
+  .data-search-form-container > h1 {
+    width: 60vw;
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .data-search-form-container > p {
+    width: 50vw;
+    font-size: 17px;
+    line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .data-search-form-container > h1 {
+    font-size: 35px;
+    line-height: 44px;
+  }
+
+  .data-search-form-container > p {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .data-search {
+    width: 92.5vw !important;
+    height: fit-content !important;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .data-search-form-info {
+    display: flex;
+  }
+
+  .data-search-form-info-text h1 {
+    font-family: "Ferry", sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 34px;
+    letter-spacing: 0.01em;
+  }
+
+  .data-search-form-info-text p {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0em;
+    margin: 30px 0;
+  }
+
+  .data-search-form-info .data-search-image-1 {
+    position: static;
+  }
+
+  .data-search-image-1__item1 {
+    width: 58px;
+  }
+
+  .data-search-image-container {
+    height: fit-content;
+    margin-bottom: 30px;
+  }
+
+  .data-search-image-2 {
+    position: static;
+  }
+
+  .data-search-image-2 img {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .data-search-image-container {
+    width: 100%;
+  }
+
+  .data-search-image-2 img {
+    width: 96vw;
+    margin-left: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .data-search-image-2 img {
+    width: 93vw;
+    margin-left: 20px;
+  }
 }

@@ -3,7 +3,7 @@ import "./index.css";
 // import arrow from "../../img/date-arrow.svg";
 import Checkbox from "../Checkbox";
 import Button from "../Button";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import checkINN from "../../services/checkINN";
 import {
@@ -16,8 +16,10 @@ import {
 } from "../../store/reducers/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import createRequestHistogramsObj from "../../services/createRequestHistogramsObj";
+import { AppContext } from "../../App";
 
 export default function SearchForm() {
+  const { screenWidth } = useContext(AppContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inn = useSelector((state) => state.user.inn);
@@ -167,101 +169,48 @@ export default function SearchForm() {
             onChange={documentsLimitHandler}
           />
 
-          <div className="range-container">
-            <Input
-              id="start-range"
-              type="text"
-              name="Диапазон поиска*"
-              placeholder="Дата начала"
-              containerClass="start-range-container"
-              labelClass="start-range-label"
-              inputClass="start-range-input"
-              onChange={startRangeHandler}
-              onFocus={() => {
-                document.querySelector("#start-range").type = "date";
-              }}
-              onBlur={() => {
-                document.querySelector("#start-range").type = "text";
-              }}
-            />
-            <Input
-              id="end-range"
-              type="text"
-              name=""
-              placeholder="Дата конца"
-              containerClass="end-range-container"
-              labelClass="end-range-label"
-              inputClass="end-range-input"
-              onChange={endRangeHandler}
-              onFocus={() => {
-                document.querySelector("#end-range").type = "date";
-              }}
-              onBlur={() => {
-                document.querySelector("#end-range").type = "text";
-              }}
-            />
+          <div className="range-data-container">
+            <p>Диапазон поиска*</p>
+            <div className="range-container">
+              <Input
+                id="start-range"
+                type="text"
+                name=""
+                placeholder="Дата начала"
+                containerClass="start-range-container"
+                labelClass="start-range-label"
+                inputClass="start-range-input"
+                onChange={startRangeHandler}
+                onFocus={() => {
+                  document.querySelector("#start-range").type = "date";
+                }}
+                onBlur={() => {
+                  document.querySelector("#start-range").type = "text";
+                }}
+              />
+              <Input
+                id="end-range"
+                type="text"
+                name=""
+                placeholder="Дата конца"
+                containerClass="end-range-container"
+                labelClass="end-range-label"
+                inputClass="end-range-input"
+                onChange={endRangeHandler}
+                onFocus={() => {
+                  document.querySelector("#end-range").type = "date";
+                }}
+                onBlur={() => {
+                  document.querySelector("#end-range").type = "text";
+                }}
+              />
+            </div>
+
+            {rangeError}
           </div>
-
-          {rangeError}
         </div>
-        <div className="search-form-checkbox-container">
-          <Checkbox
-            id="checkbox1"
-            inputClass="search-form-checkbox-input"
-            checked={true}
-            fakeClass="search-form-checkbox-fake"
-            labelClass="search-form-checkbox-label"
-            text="Признак максимальной полноты"
-          />
 
-          <Checkbox
-            id="checkbox2"
-            inputClass="search-form-checkbox-input"
-            checked={true}
-            labelClass="search-form-checkbox-label"
-            text="Упоминания в бизнес-контексте"
-          />
-
-          <Checkbox
-            id="checkbox3"
-            inputClass="search-form-checkbox-input"
-            checked={true}
-            labelClass="search-form-checkbox-label"
-            text="Главная роль в публикации"
-          />
-
-          <Checkbox
-            id="checkbox4"
-            inputClass="search-form-checkbox-input"
-            checked={false}
-            labelClass="search-form-checkbox-label"
-            text="Публикации только с риск-факторами"
-          />
-
-          <Checkbox
-            id="checkbox5"
-            inputClass="search-form-checkbox-input"
-            checked={false}
-            labelClass="search-form-checkbox-label"
-            text="Включать технические новости рынков"
-          />
-
-          <Checkbox
-            id="checkbox6"
-            inputClass="search-form-checkbox-input"
-            checked={true}
-            labelClass="search-form-checkbox-label"
-            text="Включать анонсы и календари"
-          />
-
-          <Checkbox
-            id="checkbox7"
-            inputClass="search-form-checkbox-input"
-            checked={false}
-            labelClass="search-form-checkbox-label"
-            text="Включать сводки новостей"
-          />
-
+        {screenWidth <= 700 ? (
           <div className="search-form-checkbox-btn-container">
             <Button
               name="Поиск"
@@ -271,7 +220,76 @@ export default function SearchForm() {
             />
             <p>* Обязательные к заполнению поля</p>
           </div>
-        </div>
+        ) : (
+          <div className="search-form-checkbox-container">
+            <Checkbox
+              id="checkbox1"
+              inputClass="search-form-checkbox-input"
+              checked={true}
+              fakeClass="search-form-checkbox-fake"
+              labelClass="search-form-checkbox-label"
+              text="Признак максимальной полноты"
+            />
+
+            <Checkbox
+              id="checkbox2"
+              inputClass="search-form-checkbox-input"
+              checked={true}
+              labelClass="search-form-checkbox-label"
+              text="Упоминания в бизнес-контексте"
+            />
+
+            <Checkbox
+              id="checkbox3"
+              inputClass="search-form-checkbox-input"
+              checked={true}
+              labelClass="search-form-checkbox-label"
+              text="Главная роль в публикации"
+            />
+
+            <Checkbox
+              id="checkbox4"
+              inputClass="search-form-checkbox-input"
+              checked={false}
+              labelClass="search-form-checkbox-label"
+              text="Публикации только с риск-факторами"
+            />
+
+            <Checkbox
+              id="checkbox5"
+              inputClass="search-form-checkbox-input"
+              checked={false}
+              labelClass="search-form-checkbox-label"
+              text="Включать технические новости рынков"
+            />
+
+            <Checkbox
+              id="checkbox6"
+              inputClass="search-form-checkbox-input"
+              checked={true}
+              labelClass="search-form-checkbox-label"
+              text="Включать анонсы и календари"
+            />
+
+            <Checkbox
+              id="checkbox7"
+              inputClass="search-form-checkbox-input"
+              checked={false}
+              labelClass="search-form-checkbox-label"
+              text="Включать сводки новостей"
+            />
+
+            <div className="search-form-checkbox-btn-container">
+              <Button
+                name="Поиск"
+                className="search-form-checkbox-btn"
+                btnType="submit"
+                disabled={true}
+              />
+              <p>* Обязательные к заполнению поля</p>
+            </div>
+          </div>
+        )}
       </form>
     </>
   );

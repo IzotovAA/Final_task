@@ -24,7 +24,7 @@ const initialState = {
   histograms: [],
   publicationsId: [],
   documents: [],
-  completedDocsRequestsCount: 0,
+  documentsForRender: [],
 };
 
 export const companyLimitData = createAsyncThunk(
@@ -152,7 +152,7 @@ export const userSlice = createSlice({
       state.histograms = [];
       state.publicationsId = [];
       state.documents = [];
-      state.completedDocsRequestsCount = 0;
+      state.documentsForRender = [];
 
       removeFromLocalStorage("token");
       removeFromLocalStorage("expire");
@@ -194,7 +194,7 @@ export const userSlice = createSlice({
       state.histograms = [];
       state.publicationsId = [];
       state.documents = [];
-      state.completedDocsRequestsCount = 0;
+      state.documentsForRender = [];
     },
   },
   extraReducers: {
@@ -231,7 +231,9 @@ export const userSlice = createSlice({
       state.error = null;
     },
     [publications.fulfilled]: (state, action) => {
-      state.publicationsId = action.payload.items;
+      action.payload.items.forEach((element) => {
+        state.publicationsId.push(element.encodedId);
+      });
       console.log("state.publicationsId userSlice", state.publicationsId);
       state.requestPublicationsStatus = "complete";
     },
@@ -247,13 +249,10 @@ export const userSlice = createSlice({
     },
     [documents.fulfilled]: (state, action) => {
       console.log("documents.fulfilled");
-      // state.documents = action.payload;
-      console.log("documents.fulfilled action.payload", action.payload);
       action.payload.forEach((element) => {
         state.documents.push(element);
       });
       console.log("state.documents userSlice", state.documents);
-      state.completedDocsRequestsCount += 1;
       state.requestDocumentsStatus = "complete";
     },
     [documents.rejected]: (state, action) => {

@@ -140,6 +140,10 @@
 }
 
 @media screen and (max-width: 450px) {
+  .header {
+    width: 92.5vw;
+  }
+
   .available-services {
     width: 132px;
     height: 75px;
