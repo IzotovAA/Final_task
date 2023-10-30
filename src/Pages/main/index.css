@@ -1,7 +1,6 @@
 /* section search */
 .search {
   width: 94vw;
-  /* padding: 0 4vw; */
   margin: 0 auto;
   display: flex;
 }
@@ -13,7 +12,6 @@
   line-height: 72px;
   letter-spacing: 0.01em;
   position: relative;
-  /* width: 51.5vw; */
   width: 60vw;
 }
 
@@ -21,7 +19,6 @@
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  /* margin-top: 2.5vw; */
   margin-top: 3.5vw;
 }
 
@@ -36,7 +33,6 @@
   letter-spacing: 0.01em;
   border: none;
   border-radius: 5px;
-  /* margin-top: 5vw; */
   margin-top: 5.5vw;
 }
 
@@ -57,8 +53,6 @@
 /* section why */
 .why {
   width: 94vw;
-  /* padding: 0 4vw; */
-  /* margin-top: 5vw; */
   margin: 5vw auto;
 }
 
@@ -88,14 +82,12 @@
 
 .arrow-back {
   position: relative;
-  /* top: -10vw; */
   top: -150px;
   left: -5px;
 }
 
 .arrow-next {
   position: relative;
-  /* top: -11vw; */
   top: -150px;
   left: 89vw;
 }
@@ -110,7 +102,6 @@
 /* section rates */
 .rates {
   width: 94vw;
-  /* padding: 0 4vw; */
   margin: 0 auto;
 }
 
@@ -211,6 +202,9 @@
 
   .search p {
     margin-top: 20px;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0em;
   }
 
   .search-btn {

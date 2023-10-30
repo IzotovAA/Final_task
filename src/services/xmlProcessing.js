@@ -1,8 +1,6 @@
 export default function xmlProcessing(object) {
   const parser = new DOMParser();
 
-  console.log("xmlProcessing(object)", object);
-
   const articleDate = object.ok.issueDate.slice(0, 10); // дата публикации
   const articleSourceText = object.ok.source.name; // источник
   const articleTitleText = object.ok.title.text; // заголовок статьи

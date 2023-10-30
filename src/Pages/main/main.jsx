@@ -27,18 +27,9 @@ import { AppContext } from "../../App";
 export default function MainPage({ auth, onClick }) {
   const { screenWidth } = useContext(AppContext);
   const [slidesQty, setSlidesQty] = useState(calcSlidesQty(screenWidth));
-  let slideWidth = 400,
-    slideHeight = 225;
 
   useEffect(() => {
-    if (screenWidth <= 500) {
-      slideWidth = 298;
-      slideHeight = 188;
-    } else {
-      slideWidth = 400;
-      slideHeight = 225;
-    }
-    setSlidesQty(calcSlidesQty(screenWidth));
+    setSlidesQty(calcSlidesQty(screenWidth, "main"));
   }, [screenWidth]);
 
   return (
@@ -85,8 +76,8 @@ export default function MainPage({ auth, onClick }) {
 
         <div className="why-slider-container">
           <CarouselProvider
-            naturalSlideWidth={slideWidth}
-            naturalSlideHeight={slideHeight}
+            naturalSlideWidth={400}
+            naturalSlideHeight={225}
             totalSlides={6}
             visibleSlides={slidesQty}
             infinite={true}

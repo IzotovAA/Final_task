@@ -12,7 +12,7 @@ export default function HistogramsCard({
     <div className={classNameContainer}>
       <div className={className}>
         <div>{date}</div>
-        <div>{total}</div>
+        <div className={className + "-middle"}>{total}</div>
         <div>{risks}</div>
       </div>
       <span className="border-right-line"></span>

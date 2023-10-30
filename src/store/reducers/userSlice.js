@@ -57,8 +57,6 @@ export const histograms = createAsyncThunk(
   async function (requestData) {
     try {
       const histograms = await authService.getHistograms(requestData);
-      console.log("histograms", histograms);
-      console.log("histograms.data.data", histograms.data.data);
 
       return histograms.data.data;
     } catch (error) {
@@ -75,8 +73,6 @@ export const publications = createAsyncThunk(
   async function (requestData) {
     try {
       const publications = await authService.getPublications(requestData);
-      console.log("publications", publications);
-      console.log("publications.data", publications.data);
 
       return publications.data;
     } catch (error) {
@@ -91,27 +87,16 @@ export const publications = createAsyncThunk(
 export const documents = createAsyncThunk(
   "user/documents",
   async function (requestData) {
-    console.log(
-      "documents createAsyncThunk JSON.parse(requestData)",
-      JSON.parse(requestData)
-    );
     try {
       const documents = await authService.getDocuments(requestData);
-      console.log("documents", documents);
-      console.log("createAsyncThunk documents.data", documents.data);
 
       return documents.data;
     } catch (error) {
       if (error.response.data.message) {
-        console.log(
-          "documents createAsyncThunk error: ",
-          error.response.data.message
-        );
-        // throw new error(error.response.data.message);
+        console.log(error.response.data.message);
         alert(error.response.data.message);
       } else {
         console.log("error: ", error);
-        // return error;
       }
     }
   }
@@ -160,25 +145,21 @@ export const userSlice = createSlice({
 
     setInn: (state, action) => {
       state.inn = action.payload;
-      console.log("state.inn", state.inn);
     },
 
     setDocumentsLimit: (state, action) => {
       state.documentsLimit = action.payload;
-      console.log("state.documentsLimit", state.documentsLimit);
     },
 
     setStartDate: (state, action) => {
       let startDate = action.payload + "T00:00:00+03:00";
       state.startDate = startDate;
-      console.log("state.startDate", state.startDate);
       // "startDate": "2019-01-01T00:00:00+03:00",
     },
 
     setEndDate: (state, action) => {
       let endDate = action.payload + "T23:59:59+03:00";
       state.endDate = endDate;
-      console.log("state.endDate", state.endDate);
       // "endDate": "2022-08-31T23:59:59+03:00"
     },
 
@@ -218,7 +199,6 @@ export const userSlice = createSlice({
     },
     [histograms.fulfilled]: (state, action) => {
       state.histograms = action.payload;
-      console.log("state.histograms userSlice", state.histograms);
       state.requestHistogramsStatus = "complete";
     },
     [histograms.rejected]: (state, action) => {
@@ -234,7 +214,6 @@ export const userSlice = createSlice({
       action.payload.items.forEach((element) => {
         state.publicationsId.push(element.encodedId);
       });
-      console.log("state.publicationsId userSlice", state.publicationsId);
       state.requestPublicationsStatus = "complete";
     },
     [publications.rejected]: (state, action) => {
@@ -243,22 +222,16 @@ export const userSlice = createSlice({
     },
 
     [documents.pending]: (state) => {
-      console.log("documents.pending");
       state.requestDocumentsStatus = "inProgress";
       state.error = null;
     },
     [documents.fulfilled]: (state, action) => {
-      console.log("documents.fulfilled");
       action.payload.forEach((element) => {
         state.documents.push(element);
       });
-      console.log("state.documents userSlice", state.documents);
       state.requestDocumentsStatus = "complete";
     },
     [documents.rejected]: (state, action) => {
-      console.log("documents.rejected");
-      console.log("documents.rejected action", action);
-
       state.error = action.payload;
       state.requestDocumentsStatus = null;
     },

@@ -58,7 +58,7 @@ export default function Header({
 
   useEffect(() => {
     if (auth) {
-      // искуственная задержка для проверки работы лоадера
+      // искуственная задержка для визуальной проверки работы лоадера
       setTimeout(() => {
         dispatch(companyLimitData());
       }, 1000);

@@ -1,5 +1,4 @@
 .search-form-container {
-  /* width: 60.5vw; */
   width: 872px;
   height: 500px;
   box-shadow: 0 0 10px 3px #00000033;
@@ -32,6 +31,16 @@
   margin: 15px 0;
 }
 
+.inn-label-ok::after {
+  content: "*";
+  color: #000000;
+}
+
+.inn-label-error::after {
+  content: "*";
+  color: #cf0000;
+}
+
 .inn-input,
 .tonality,
 .doc-qty-input,
@@ -41,6 +50,29 @@
   border: 1px solid #c7c7c7;
   border-radius: 5px;
   text-align: center;
+}
+
+.inn-input:hover,
+.tonality:hover,
+.doc-qty-input:hover,
+.start-range-input:hover,
+.end-range-input:hover {
+  box-shadow: 0 0 3px 2px #0294913c;
+}
+
+.inn-input:focus,
+.tonality:focus,
+.doc-qty-input:focus,
+.start-range-input:focus,
+.end-range-input:focus {
+  outline: none;
+  box-shadow: 0 0 3px 2px #029491;
+}
+
+.input-error,
+.input-error:hover,
+.input-error:focus {
+  box-shadow: 0 0 3px 2px #cf0000;
 }
 
 .inn-error {
@@ -53,9 +85,8 @@
   line-height: 14px;
   letter-spacing: 0.01em;
   color: #cf0000;
-  background-color: #e0d372b6;
-  box-shadow: 0 0 3px 2px #e26d00;
   border-radius: 5px;
+  margin: -7px 0 -13px 0;
 }
 
 .tonality {
@@ -66,7 +97,7 @@
 .start-range-input,
 .end-range-input {
   width: 100%;
-  margin: 15px 0;
+  margin: 15px 0 10px 0;
   text-align: center;
 }
 
@@ -74,10 +105,19 @@
   margin-top: 30px;
 }
 
-.range-data-container p {
+.range-data-container p,
+.range-data {
   font-size: 18px;
   line-height: 22px;
   letter-spacing: 0.03em;
+}
+
+.range-data-ok {
+  color: #000000;
+}
+
+.range-data-error {
+  color: #cf0000;
 }
 
 .range-container {
@@ -107,8 +147,6 @@
   line-height: 14px;
   letter-spacing: 0.01em;
   color: #cf0000;
-  background-color: #e0d372b6;
-  box-shadow: 0 0 3px 2px #e26d00;
   border-radius: 5px;
 }
 

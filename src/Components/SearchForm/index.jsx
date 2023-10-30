@@ -1,6 +1,5 @@
 import Input from "../Input";
 import "./index.css";
-// import arrow from "../../img/date-arrow.svg";
 import Checkbox from "../Checkbox";
 import Button from "../Button";
 import { useContext, useEffect, useState } from "react";
@@ -22,51 +21,61 @@ export default function SearchForm() {
   const { screenWidth } = useContext(AppContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const inn = useSelector((state) => state.user.inn);
   const documentsLimit = useSelector((state) => state.user.documentsLimit);
   const startDate = useSelector((state) => state.user.startDate);
   const endDate = useSelector((state) => state.user.endDate);
-  const requestPublicationsStatus = useSelector(
-    (state) => state.user.requestPublicationsStatus
-  );
-  const documentsArr = useSelector((state) => state.user.documents);
+
   const [innError, setInnError] = useState(null);
   const [rangeError, setRangeError] = useState(null);
 
-  console.log(
-    "SearchForm requestPublicationsStatus",
-    requestPublicationsStatus
-  );
-
-  console.log("SearchForm documentsArr", documentsArr);
-
   useEffect(() => {
-    console.log("useEffect dispatch");
-    console.log("useEffect dispatch startDate", startDate);
-    console.log("useEffect dispatch endDate", endDate);
-
+    const start = new Date(startDate);
+    const end = new Date(endDate);
     const submitBtn = document.querySelector(".search-form-checkbox-btn");
-    if (inn.length === 10 && documentsLimit && startDate && endDate) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
+    const startInput = document.querySelector("#start-range");
+    const endInput = document.querySelector("#end-range");
+    const limitInput = document.querySelector("#doc-qty");
+    const rangeDataReq = document.querySelector(".range-data");
+    startInput.classList.remove("input-error");
+    endInput.classList.remove("input-error");
+    rangeDataReq.classList.remove("range-data-error");
+    rangeDataReq.classList.add("range-data-ok");
 
-      if (end.getTime() - start.getTime() > 0) {
-        submitBtn.disabled = false;
-      } else {
-        setRangeError(
-          <div className="range-error">
-            Дата начала должна быть раньше даты конца
-          </div>
-        );
-        submitBtn.disabled = true;
-      }
+    if (end.getTime() - start.getTime() < 0) {
+      setRangeError(
+        <div className="range-error">
+          Дата начала должна быть раньше даты конца
+        </div>
+      );
+      submitBtn.disabled = true;
+      startInput.classList.add("input-error");
+      endInput.classList.add("input-error");
+      rangeDataReq.classList.add("range-data-error");
+    }
+
+    if (
+      inn.length === 10 &&
+      limitInput.value &&
+      documentsLimit &&
+      startDate &&
+      endDate &&
+      end.getTime() - start.getTime() > 0
+    ) {
+      submitBtn.disabled = false;
     } else submitBtn.disabled = true;
   }, [inn, documentsLimit, startDate, endDate]);
 
-  console.log("requestPublicationsStatus", requestPublicationsStatus);
-
   const innHandler = (event) => {
+    const innInput = document.querySelector("#inn");
+    const innLabel = document.querySelector(".inn-label");
+
     setInnError(null);
+    innInput.classList.remove("input-error");
+    innLabel.classList.remove("inn-label-error");
+    innLabel.classList.add("inn-label-ok");
+
     if (!/[^0-9]/.test(event.target.value)) {
       if (event.target.value.length <= 10) {
         dispatch(setInn(event.target.value));
@@ -78,16 +87,24 @@ export default function SearchForm() {
 
       if (!check.result) {
         setInnError(<div className="inn-error">{check.message}</div>);
+
+        innInput.classList.add("input-error");
+        innLabel.classList.add("inn-label-error");
       }
     }
   };
 
   const documentsLimitHandler = (event) => {
+    const submitBtn = document.querySelector(".search-form-checkbox-btn");
     if (
       parseInt(event.target.value) > 0 &&
       parseInt(event.target.value) <= 1000
     ) {
       dispatch(setDocumentsLimit(event.target.value));
+    } else if (event.target.value === "") {
+      event.target.value = "";
+      dispatch(setDocumentsLimit(0));
+      submitBtn.disabled = true;
     } else if (parseInt(event.target.value) <= 0) {
       dispatch(setDocumentsLimit(1));
       event.target.value = 1;
@@ -98,20 +115,17 @@ export default function SearchForm() {
   };
 
   const startRangeHandler = (event) => {
-    console.log("startRangeHandler event.target.value", event.target.value);
     dispatch(setStartDate(event.target.value));
     setRangeError(null);
   };
 
   const endRangeHandler = (event) => {
-    console.log("endRangeHandler event.target.value", event.target.value);
     dispatch(setEndDate(event.target.value));
     setRangeError(null);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log("onSubmit");
     const requestHistogramsObj = createRequestHistogramsObj(
       startDate,
       endDate,
@@ -122,8 +136,6 @@ export default function SearchForm() {
     dispatch(histograms(requestHistogramsObj));
     dispatch(publications(requestHistogramsObj));
     navigate("/datasearch/result");
-
-    console.log("submitHandler end");
   };
 
   return (
@@ -133,10 +145,10 @@ export default function SearchForm() {
           <Input
             id="inn"
             type="text"
-            name="ИНН компании*"
+            name="ИНН компании"
             placeholder="10 цифр"
             containerClass="inn-container"
-            labelClass="inn-label"
+            labelClass="inn-label inn-label-ok"
             inputClass="inn-input"
             onChange={innHandler}
           />
@@ -170,7 +182,9 @@ export default function SearchForm() {
           />
 
           <div className="range-data-container">
-            <p>Диапазон поиска*</p>
+            <p>
+              Диапазон поиска<span className="range-data range-data-ok">*</span>
+            </p>
             <div className="range-container">
               <Input
                 id="start-range"

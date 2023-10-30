@@ -13,7 +13,6 @@ import { setToLocalStorage } from "../../services/localStorage";
 
 export default function AuthForm({
   className,
-  onClick,
   onClickEnter,
   onClickReg,
   path,
@@ -108,7 +107,6 @@ export default function AuthForm({
         <div className="authform-enter-btn-container">
           <Button
             name="Войти"
-            onClick={() => {}}
             className="authform-enter-btn"
             btnType="submit"
             disabled={loginData && passwordData ? false : true}
@@ -126,19 +124,16 @@ export default function AuthForm({
           <div className="authform-alternative-enter-btn-container">
             <Button
               name={<img src={google} alt="google" />}
-              onClick={onClick}
               className="authform-alternative-enter-btn"
             />
 
             <Button
               name={<img src={facebook} alt="facebook" />}
-              onClick={onClick}
               className="authform-alternative-enter-btn"
             />
 
             <Button
               name={<img src={yandex} alt="yandex" />}
-              onClick={onClick}
               className="authform-alternative-enter-btn"
             />
           </div>

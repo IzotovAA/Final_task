@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import searchPic from "../../img/search-result.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +18,13 @@ import Loader from "../../Components/Loader";
 import xmlProcessing from "../../services/xmlProcessing";
 import ArticleCard from "../../Components/Cards/ArticleCard";
 import Button from "../../Components/Button";
+import { AppContext } from "../../App";
+import calcSlidesQty from "../../services/calcSlidesQty";
 
 export default function SearchResultPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { screenWidth } = useContext(AppContext);
 
   const requestHistogramsStatus = useSelector(
     (state) => state.user.requestHistogramsStatus
@@ -36,24 +39,26 @@ export default function SearchResultPage() {
   const histograms = useSelector((state) => state.user.histograms);
   const publicationsId = useSelector((state) => state.user.publicationsId);
   const documentsForRender = useSelector((state) => state.user.documents);
+
   const [totalQty, setTotalQty] = useState(0);
   const [moreBtnClass, setMoreBtnClass] = useState(
     "search-result-documents-btn"
   );
-  const requestDocumentsObj = { ids: [] };
+  const [visibleSlides, setVisibleSlides] = useState(8);
+
   let sliceIndex1 = useRef(0);
   let sliceIndex2 = useRef(10);
+
+  const requestDocumentsObj = { ids: [] };
   let slideIndex = 0;
   let riskIndex = 0;
   let cardIndex = 1;
 
-  // console.log("histograms", histograms);
-  // console.log("error", error);
-  // console.log("completedDocsRequestsCount", completedDocsRequestsCount);
-  // console.log("docsRequestsCount.current", docsRequestsCount.current);
-  console.log("requestDocumentsStatus", requestDocumentsStatus);
-  // console.log("documentsArr", documentsArr);
-  console.log("documentsForRender", documentsForRender);
+  useEffect(() => {
+    if (visibleSlides !== calcSlidesQty(screenWidth, "search-result")) {
+      setVisibleSlides(calcSlidesQty(screenWidth, "search-result"));
+    }
+  }, [screenWidth]);
 
   useEffect(() => {
     if (requestHistogramsStatus === "complete") {
@@ -69,20 +74,23 @@ export default function SearchResultPage() {
   }, [requestHistogramsStatus]);
 
   useEffect(() => {
-    console.log("useEffect зависит от requestPublicationsStatus");
     if (requestPublicationsStatus === "complete") {
-      console.log("publicationsId", publicationsId);
-
       requestDocumentsObj.ids = publicationsId.slice(
         sliceIndex1.current,
         sliceIndex2.current
       );
       dispatch(documents(JSON.stringify(requestDocumentsObj)));
+      if (publicationsId.length <= 10) {
+        setMoreBtnClass("search-result-documents-btn hidden");
+      }
     }
   }, [requestPublicationsStatus]);
 
   useEffect(() => {
-    if (requestDocumentsStatus && sliceIndex2.current > publicationsId.length) {
+    if (
+      requestDocumentsStatus &&
+      sliceIndex2.current >= publicationsId.length
+    ) {
       setMoreBtnClass("search-result-documents-btn hidden");
     } else setMoreBtnClass("search-result-documents-btn");
   }, [sliceIndex2.current]);
@@ -90,20 +98,36 @@ export default function SearchResultPage() {
   return (
     <>
       <section className="search-result">
-        <div className="search-result-info-container">
-          <div className="search-result-info-text">
-            <h1>
-              Ищем. Скоро <br />
-              будут результаты
-            </h1>
-            <p>
-              Поиск может занять некоторое время, <br />
-              просим сохранять терпение.
-            </p>
+        {screenWidth <= 500 ? (
+          <div className="search-result-info-container">
+            <div className="search-result-info-text">
+              <h1>
+                Ищем. Скоро <br />
+                будут результаты
+              </h1>
+              <p>
+                Поиск может занять некоторое время, <br />
+                просим сохранять терпение.
+              </p>
+              <img src={searchPic} alt="pic" />
+            </div>
           </div>
+        ) : (
+          <div className="search-result-info-container">
+            <div className="search-result-info-text">
+              <h1>
+                Ищем. Скоро <br />
+                будут результаты
+              </h1>
+              <p>
+                Поиск может занять некоторое время, <br />
+                просим сохранять терпение.
+              </p>
+            </div>
 
-          <img src={searchPic} alt="pic" />
-        </div>
+            <img src={searchPic} alt="pic" />
+          </div>
+        )}
 
         <div className="search-result-histograms-container">
           <h2>Общая сводка</h2>
@@ -119,7 +143,7 @@ export default function SearchResultPage() {
                 naturalSlideWidth={138}
                 naturalSlideHeight={158}
                 totalSlides={histograms[0] ? histograms[0].data.length : 0}
-                visibleSlides={8}
+                visibleSlides={visibleSlides}
                 infinite={false}
               >
                 {requestHistogramsStatus === "complete" ? (
@@ -206,7 +230,6 @@ export default function SearchResultPage() {
             onClick={() => {
               sliceIndex1.current += 10;
               sliceIndex2.current += 10;
-              console.log("sliceIndex2.current", sliceIndex2.current);
 
               requestDocumentsObj.ids = publicationsId.slice(
                 sliceIndex1.current,

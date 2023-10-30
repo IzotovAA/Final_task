@@ -32,7 +32,6 @@ export const authService = {
 
   async getHistograms(requestData) {
     try {
-      // POST /api/v1/objectsearch/histograms
       const data = await instance.post("objectsearch/histograms", requestData, {
         headers: {
           Authorization: `Bearer ${getFromLocalStorage("token")}`,
@@ -49,7 +48,6 @@ export const authService = {
 
   async getPublications(requestData) {
     try {
-      // POST /api/v1/objectsearch
       const data = await instance.post("objectsearch", requestData, {
         headers: {
           Authorization: `Bearer ${getFromLocalStorage("token")}`,
@@ -66,7 +64,6 @@ export const authService = {
 
   async getDocuments(requestData) {
     try {
-      // POST /api/v1/documents
       const data = await instance.post("documents", requestData, {
         headers: {
           Authorization: `Bearer ${getFromLocalStorage("token")}`,
@@ -75,13 +72,10 @@ export const authService = {
       return data;
     } catch (error) {
       if (error.response.data.message) {
-        // throw new error(error.response.data.message);
         console.log("error: ", error.response.data.message);
-        // return error.response.data.message;
         alert(error.response.data.message);
       } else {
         console.log("error: ", error);
-        // return error;
       }
     }
   },

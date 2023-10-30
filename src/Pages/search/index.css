@@ -7,9 +7,6 @@
   justify-content: space-between;
 }
 
-/* .data-search-form-container {
-} */
-
 .data-search-form-container > h1 {
   width: 56vw;
   font-family: "Ferry", sans-serif;
@@ -28,7 +25,6 @@
 }
 
 .data-search-image-container {
-  /* width: 30vw; */
   height: 640px;
   display: flex;
   flex-direction: column;
@@ -60,7 +56,6 @@
   width: 28vw;
 }
 
-/* адаптировать страницу поиска */
 @media screen and (max-width: 1200px) {
   .data-search-form-container > h1 {
     width: 60vw;

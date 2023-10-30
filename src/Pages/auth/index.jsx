@@ -5,7 +5,7 @@ import lock from "../../img/auth-lock.svg";
 import AuthForm from "../../Components/AuthForm";
 import { AppContext } from "../../App";
 
-export default function AuthPage({ onClick, onClickEnter, onClickReg, path }) {
+export default function AuthPage({ onClickEnter, onClickReg, path }) {
   const { screenWidth } = useContext(AppContext);
 
   return (
@@ -19,7 +19,6 @@ export default function AuthPage({ onClick, onClickEnter, onClickReg, path }) {
             <img src={lock} alt="lock" className="auth-lock" />
             <AuthForm
               className="auth-form"
-              onClick={onClick}
               onClickEnter={onClickEnter}
               onClickReg={onClickReg}
               path={path}
@@ -37,7 +36,6 @@ export default function AuthPage({ onClick, onClickEnter, onClickReg, path }) {
             <img src={lock} alt="lock" className="auth-lock" />
             <AuthForm
               className="auth-form"
-              onClick={onClick}
               onClickEnter={onClickEnter}
               onClickReg={onClickReg}
               path={path}

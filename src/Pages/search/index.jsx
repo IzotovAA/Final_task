@@ -12,8 +12,6 @@ export default function SearchPage() {
   const { screenWidth } = useContext(AppContext);
   const dispatch = useDispatch();
 
-  console.log("SearchPage");
-
   useEffect(() => {
     dispatch(initSearchForm());
   }, []);

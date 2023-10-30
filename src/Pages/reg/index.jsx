@@ -3,7 +3,7 @@ import "./index.css";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
 
-export default function RegPage({ onClick, onClickEnter, onClickReg }) {
+export default function RegPage({ onClickEnter, onClickReg }) {
   // форма для примера работы навигации, по хорошему нужно делать компонент
   // форму регистрации с уникальными классами
   return (
@@ -41,12 +41,7 @@ export default function RegPage({ onClick, onClickEnter, onClickReg }) {
             inputClass="authform-pass-input"
           />
           <div className="authform-enter-btn-container">
-            <Button
-              name="Зарегестрироваться"
-              onClick={onClick}
-              className="authform-enter-btn"
-              btnType="submit"
-            />
+            <Button name="Зарегестрироваться" className="authform-enter-btn" />
           </div>
         </form>
       </section>
